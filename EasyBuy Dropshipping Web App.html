@@ -1,0 +1,2423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>EasyBuy Dropshipping - Official Reseller Platform</title>
+  <meta name="description" content="EasyBuy Dropshipping Reseller Platform - Shop Easy, Buy Smart. Islandwide delivery, weekly Wednesday payouts.">
+  <meta name="theme-color" content="#0c1a30">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- html2canvas for instant receipt slip capture -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              navy: '#0c1a30',
+              deep: '#070f1e',
+              orange: '#ff6b00',
+              orangeLight: '#ff8533',
+              gold: '#ffb703',
+              card: '#132238',
+              border: '#1f3352'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar and UI Tweaks */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #0c1a30; }
+    ::-webkit-scrollbar-thumb { background: #1f3352; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #ff6b00; }
+    
+    .safe-bottom { padding-bottom: 5.5rem; }
+    .glass-nav {
+      background: rgba(12, 26, 48, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .badge-glow {
+      box-shadow: 0 0 15px rgba(255, 107, 0, 0.4);
+    }
+    input, select, textarea {
+      color-scheme: dark;
+    }
+    /* Hide scrollbar for clean chip sliders */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  </style>
+</head>
+<body class="bg-[#070f1e] text-slate-100 min-h-screen font-sans selection:bg-brand-orange selection:text-white">
+
+  <!-- ================= TOP APP HEADER ================= -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-brand-border/60 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      
+      <!-- Logo Branding -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('archive')">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-orange to-yellow-400 p-0.5 flex items-center justify-center shadow-lg shadow-brand-orange/20">
+          <div class="w-full h-full bg-brand-navy rounded-[10px] flex items-center justify-center">
+            <i data-lucide="shopping-cart" class="w-5 h-5 text-brand-orange"></i>
+          </div>
+        </div>
+        <div>
+          <div class="flex items-center space-x-1.5 leading-none">
+            <span class="text-xl font-black tracking-tight text-white">Easy<span class="text-brand-orange">Buy</span></span>
+            <span class="text-[10px] px-1.5 py-0.5 rounded bg-brand-orange/20 text-brand-orange font-bold uppercase tracking-wider border border-brand-orange/30">RESELLER</span>
+          </div>
+          <p class="text-[10px] text-slate-400 font-medium tracking-wider flex items-center gap-1 mt-0.5">
+            <i data-lucide="truck" class="w-3 h-3 text-brand-orange"></i> Shop Easy. Buy Smart.
+          </p>
+        </div>
+      </div>
+
+      <!-- Action Icons: Incentives, Admin Indicator, User Profile -->
+      <div class="flex items-center space-x-2">
+        <!-- Bonus Incentive Gift -->
+        <button onclick="openBonusModal()" class="relative p-2.5 rounded-xl bg-brand-card hover:bg-brand-border/70 border border-brand-border text-yellow-400 transition" title="Bonus Targets">
+          <i data-lucide="gift" class="w-5 h-5"></i>
+          <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-brand-orange rounded-full animate-ping"></span>
+          <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-brand-orange rounded-full"></span>
+        </button>
+
+        <!-- Size Chart Quick Guide -->
+        <button onclick="openSizeGuideModal()" class="p-2.5 rounded-xl bg-brand-card hover:bg-brand-border/70 border border-brand-border text-slate-300 hover:text-white transition" title="Size Chart Guide">
+          <i data-lucide="ruler" class="w-5 h-5"></i>
+        </button>
+
+        <!-- Current User Badge / Login Trigger -->
+        <div id="headerUserBtn" onclick="switchTab('account')" class="flex items-center space-x-2 pl-2 pr-3 py-1.5 rounded-xl bg-brand-card border border-brand-border cursor-pointer hover:border-brand-orange/60 transition">
+          <div class="w-7 h-7 rounded-lg bg-brand-orange/20 text-brand-orange flex items-center justify-center font-bold text-xs" id="userAvatar">
+            U
+          </div>
+          <div class="text-left hidden sm:block">
+            <p class="text-xs font-semibold leading-tight text-slate-200" id="userNameHeader">Guest Reseller</p>
+            <p class="text-[10px] text-slate-400 leading-tight" id="userRoleHeader">Tap to Login</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wednesday Payout Policy Top Ticker -->
+    <div class="max-w-6xl mx-auto mt-2 bg-gradient-to-r from-brand-orange/15 via-brand-card to-brand-orange/10 border border-brand-orange/30 rounded-lg py-1 px-2.5 flex items-center justify-between text-[11px] text-amber-200">
+      <div class="flex items-center gap-1.5 truncate">
+        <i data-lucide="calendar" class="w-3.5 h-3.5 text-brand-orange shrink-0"></i>
+        <span class="font-medium truncate">සෑම බදාදා දිනකම එම සතියේ Delivered Orders වල කොමිස් මුදල් ස්වයංක්‍රීයව බැංකු ගිණුමට බැරවේ. (Wednesday Payouts)</span>
+      </div>
+      <span class="hidden md:inline-block font-bold text-brand-orange shrink-0 ml-2">LKR 450 Flat Delivery</span>
+    </div>
+  </header>
+
+  <!-- ================= MAIN VIEW CONTAINER ================= -->
+  <main class="max-w-6xl mx-auto px-3 sm:px-4 py-4 safe-bottom">
+
+    <!-- 1. CATALOG TAB (Archive / Home) -->
+    <section id="tab-archive" class="space-y-4">
+      
+      <!-- Catalog Controls: Search & Category filter -->
+      <div class="flex flex-col sm:flex-row gap-2.5 items-stretch sm:items-center justify-between">
+        <div class="relative flex-1">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input type="text" id="catalogSearch" oninput="renderCatalog()" placeholder="Search luxury shirts, polos, linen..." class="w-full pl-10 pr-4 py-2.5 bg-brand-card border border-brand-border rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:border-brand-orange transition">
+        </div>
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+          <button onclick="setCategoryFilter('all')" class="cat-pill active px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-brand-orange text-white transition">All Items</button>
+          <button onclick="setCategoryFilter('offers')" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-brand-card border border-brand-border text-slate-300 hover:text-white transition">🔥 Special Offers</button>
+          <button onclick="setCategoryFilter('shirts')" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-brand-card border border-brand-border text-slate-300 hover:text-white transition">Shirts</button>
+          <button onclick="setCategoryFilter('polos')" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-brand-card border border-brand-border text-slate-300 hover:text-white transition">Polos</button>
+          <button onclick="setCategoryFilter('oversized')" class="cat-pill px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap bg-brand-card border border-brand-border text-slate-300 hover:text-white transition">Oversized</button>
+        </div>
+      </div>
+
+      <!-- Reseller Quick Notice -->
+      <div class="bg-brand-card border border-brand-border rounded-2xl p-3.5 flex items-start gap-3 text-xs text-slate-300">
+        <div class="p-2 rounded-lg bg-brand-orange/20 text-brand-orange shrink-0">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+        </div>
+        <div class="space-y-0.5">
+          <p class="font-bold text-white">Reseller High-Profit Guarantee</p>
+          <p class="text-slate-400 leading-relaxed">භාණ්ඩයේ Photos 4ම බලන්න, Social Media Caption එක 1-ක්ලික් එකෙන් Copy කර WhatsApp Status / FB දමා ඕර්ඩර්ස් වෙන්කරගන්න. COD මුදලට LKR 450 ඩිලිවරි ස්වයංක්‍රීයව එකතු වේ.</p>
+        </div>
+      </div>
+
+      <!-- 2-COLUMN RESPONSIVE PRODUCT GRID -->
+      <div id="productGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- 2. ORDERS TAB -->
+    <section id="tab-orders" class="space-y-4 hidden">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <i data-lucide="package" class="w-5 h-5 text-brand-orange"></i>
+            Reseller Orders Registry
+          </h2>
+          <p class="text-xs text-slate-400">ඔබ සහ ඔබේ පාරිභෝගිකයින් සඳහා වෙන්කළ සියලුම ඇණවුම්</p>
+        </div>
+
+        <!-- Export CSV Button (Admin or Reseller) -->
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <button onclick="exportOrdersToCSV()" class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold transition shadow-md">
+            <i data-lucide="sheet" class="w-4 h-4"></i> Export Courier Sheet (CSV)
+          </button>
+        </div>
+      </div>
+
+      <!-- Search & Status Filter Tabs -->
+      <div class="bg-brand-card p-3 rounded-2xl border border-brand-border space-y-3">
+        <div class="relative">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+          <input type="text" id="orderSearchInput" oninput="renderOrdersList()" placeholder="Search by Order ID (ORD-XXXX), Customer name, or Phone..." class="w-full pl-9 pr-4 py-2 bg-brand-navy border border-brand-border rounded-xl text-xs text-white placeholder-slate-400 focus:outline-none focus:border-brand-orange">
+        </div>
+
+        <!-- Filter Status Buttons -->
+        <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+          <button onclick="setOrderStatusFilter('ALL')" class="order-status-pill active px-3 py-1 rounded-lg text-xs font-semibold bg-brand-orange text-white">All (<span id="count-all">0</span>)</button>
+          <button onclick="setOrderStatusFilter('PENDING')" class="order-status-pill px-3 py-1 rounded-lg text-xs font-semibold bg-brand-navy text-amber-400 border border-brand-border">Pending (<span id="count-pending">0</span>)</button>
+          <button onclick="setOrderStatusFilter('SHIPPED')" class="order-status-pill px-3 py-1 rounded-lg text-xs font-semibold bg-brand-navy text-blue-400 border border-brand-border">Shipped (<span id="count-shipped">0</span>)</button>
+          <button onclick="setOrderStatusFilter('DELIVERED')" class="order-status-pill px-3 py-1 rounded-lg text-xs font-semibold bg-brand-navy text-emerald-400 border border-brand-border">Delivered (<span id="count-delivered">0</span>)</button>
+          <button onclick="setOrderStatusFilter('RETURNED')" class="order-status-pill px-3 py-1 rounded-lg text-xs font-semibold bg-brand-navy text-rose-400 border border-brand-border">Returned (<span id="count-returned">0</span>)</button>
+        </div>
+      </div>
+
+      <!-- Orders List Container -->
+      <div id="ordersListContainer" class="space-y-3">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- 3. ACCOUNT / REGISTRATION TAB -->
+    <section id="tab-account" class="space-y-5 hidden">
+      
+      <!-- User Greeting & Overview -->
+      <div class="bg-gradient-to-br from-brand-card via-brand-navy to-brand-card p-5 rounded-2xl border border-brand-border shadow-xl">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex items-center space-x-3.5">
+            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-orange to-yellow-400 p-0.5">
+              <div class="w-full h-full bg-brand-navy rounded-[14px] flex items-center justify-center text-xl font-bold text-brand-orange" id="accountBigAvatar">
+                ED
+              </div>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-lg font-bold text-white" id="accountName">Guest Reseller</h3>
+                <span id="accountRoleTag" class="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-slate-800 text-slate-300 rounded-md border border-slate-700">Guest</span>
+              </div>
+              <p class="text-xs text-slate-400" id="accountEmail">Please login to save bank details and track commissions</p>
+              <p class="text-xs text-brand-orange font-semibold mt-0.5" id="accountBusiness">Business: Not Set</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button id="authActionBtn" onclick="openAuthModal()" class="flex-1 sm:flex-none px-4 py-2 bg-brand-orange hover:bg-brand-orangeLight text-white rounded-xl text-xs font-bold transition shadow-lg shadow-brand-orange/20">
+              Sign In / Register
+            </button>
+            <button id="logoutBtn" onclick="handleLogout()" class="hidden px-4 py-2 bg-rose-600/20 text-rose-300 hover:bg-rose-600/30 border border-rose-500/30 rounded-xl text-xs font-bold transition">
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Realtime Commission Financial Dashboard -->
+      <div>
+        <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-2.5 flex items-center gap-2">
+          <i data-lucide="wallet" class="w-4 h-4 text-brand-orange"></i> Your Earnings & Commission Report
+        </h4>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div class="bg-brand-card p-3.5 rounded-xl border border-brand-border">
+            <p class="text-[11px] text-slate-400 font-medium">Pending Payout (Wed)</p>
+            <p class="text-lg font-black text-amber-400 mt-1" id="statPendingCommission">LKR 0</p>
+            <p class="text-[10px] text-slate-500">From Delivered (Unpaid)</p>
+          </div>
+
+          <div class="bg-brand-card p-3.5 rounded-xl border border-brand-border">
+            <p class="text-[11px] text-slate-400 font-medium">Paid Commissions</p>
+            <p class="text-lg font-black text-emerald-400 mt-1" id="statPaidCommission">LKR 0</p>
+            <p class="text-[10px] text-slate-500">Credited to Bank</p>
+          </div>
+
+          <div class="bg-brand-card p-3.5 rounded-xl border border-brand-border">
+            <p class="text-[11px] text-slate-400 font-medium">In-Transit Commission</p>
+            <p class="text-lg font-black text-blue-400 mt-1" id="statShippedCommission">LKR 0</p>
+            <p class="text-[10px] text-slate-500">Shipped Orders</p>
+          </div>
+
+          <div class="bg-brand-card p-3.5 rounded-xl border border-brand-border">
+            <p class="text-[11px] text-slate-400 font-medium">Total COD Sales Volume</p>
+            <p class="text-lg font-black text-white mt-1" id="statTotalVolume">LKR 0</p>
+            <p class="text-[10px] text-slate-500">Delivered Total GMV</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reseller Business & Bank Details Form -->
+      <div class="bg-brand-card p-4 sm:p-5 rounded-2xl border border-brand-border space-y-4">
+        <div class="flex items-center justify-between border-b border-brand-border pb-3">
+          <div>
+            <h4 class="text-sm font-bold text-white flex items-center gap-2">
+              <i data-lucide="landmark" class="w-4 h-4 text-brand-orange"></i> Bank Payout & Business Setup
+            </h4>
+            <p class="text-xs text-slate-400">ඔබගේ කොමිස් මුදල් බදාදා දින බැර කිරීම සඳහා නිවැරදි බැංකු ගිණුම් විස්තර සපයන්න.</p>
+          </div>
+          <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold">Secure</span>
+        </div>
+
+        <form id="bankSetupForm" onsubmit="saveBankDetails(event)" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Business / Brand Name</label>
+            <input type="text" id="bankBusinessName" placeholder="e.g. Urban Vogue LK" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">WhatsApp Mobile Number</label>
+            <input type="tel" id="bankWhatsApp" placeholder="e.g. 0771234567" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Bank Name</label>
+            <select id="bankName" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+              <option value="">Select Bank</option>
+              <option value="Commercial Bank">Commercial Bank</option>
+              <option value="Sampath Bank">Sampath Bank</option>
+              <option value="Bank of Ceylon (BOC)">Bank of Ceylon (BOC)</option>
+              <option value="People's Bank">People's Bank</option>
+              <option value="Hatton National Bank (HNB)">Hatton National Bank (HNB)</option>
+              <option value="Nations Trust Bank (NTB)">Nations Trust Bank (NTB)</option>
+              <option value="Seylan Bank">Seylan Bank</option>
+              <option value="DFCC Bank">DFCC Bank</option>
+              <option value="Pan Asia Bank">Pan Asia Bank</option>
+              <option value="Union Bank">Union Bank</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Branch Name</label>
+            <input type="text" id="bankBranch" placeholder="e.g. Nugegoda / Kandy" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Bank Account Number</label>
+            <input type="text" id="bankAccountNumber" placeholder="Account Number" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange font-mono">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Account Holder Full Name</label>
+            <input type="text" id="bankHolderName" placeholder="Exact name as in bank passbook" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+          </div>
+          <div class="md:col-span-2 pt-2">
+            <button type="submit" class="w-full py-2.5 bg-gradient-to-r from-brand-orange to-brand-orangeLight text-white font-bold rounded-xl hover:opacity-95 transition shadow-lg shadow-brand-orange/20 flex items-center justify-center gap-2">
+              <i data-lucide="save" class="w-4 h-4"></i> Save Bank & Business Profile
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </section>
+
+    <!-- 4. ADMIN ONLY: RESELLERS TAB -->
+    <section id="tab-resellers" class="space-y-4 hidden">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <i data-lucide="users" class="w-5 h-5 text-brand-orange"></i>
+            Admin Resellers Directory & Payouts
+          </h2>
+          <p class="text-xs text-slate-400">Reseller touch profile, direct WhatsApp link, and Wednesday Payout settlement</p>
+        </div>
+        <span class="px-2.5 py-1 rounded-lg bg-brand-orange/20 border border-brand-orange/40 text-brand-orange text-xs font-bold">Admin Privileged</span>
+      </div>
+
+      <div class="bg-brand-card p-3 rounded-2xl border border-brand-border">
+        <input type="text" id="adminResellerSearch" oninput="renderAdminResellers()" placeholder="Search reseller by name, business, or email..." class="w-full px-3.5 py-2 bg-brand-navy border border-brand-border rounded-xl text-xs text-white placeholder-slate-400 focus:outline-none focus:border-brand-orange">
+      </div>
+
+      <div id="adminResellersList" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- 5. ADMIN ONLY: ADD PRODUCT TAB -->
+    <section id="tab-add-item" class="space-y-4 hidden">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-bold text-white flex items-center gap-2">
+            <i data-lucide="plus-circle" class="w-5 h-5 text-brand-orange"></i>
+            Add New Product to Catalog
+          </h2>
+          <p class="text-xs text-slate-400">Directly upload 4 gallery images (Front, Back, Fabric, Model) with auto-compression</p>
+        </div>
+        <span class="px-2.5 py-1 rounded-lg bg-brand-orange/20 border border-brand-orange/40 text-brand-orange text-xs font-bold">Admin Only</span>
+      </div>
+
+      <form id="addProductForm" onsubmit="handleCreateProduct(event)" class="bg-brand-card p-4 sm:p-5 rounded-2xl border border-brand-border space-y-4 text-xs">
+        
+        <!-- 4 DIRECT PHOTO GALLERY UPLOADS -->
+        <div>
+          <label class="block text-white font-bold mb-1.5 flex items-center gap-1.5">
+            <i data-lucide="camera" class="w-4 h-4 text-brand-orange"></i> Direct Gallery Photos (4 Slots Required)
+          </label>
+          <p class="text-slate-400 text-[11px] mb-3">URLs අවශ්‍ය නැත. ඔබගේ Phone Gallery / PC එකෙන් Front, Back, Fabric, Model ඡායාරූප 4 ක් තෝරන්න.</p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+            <!-- Photo 1: Front -->
+            <div class="bg-brand-navy p-2.5 rounded-xl border border-brand-border text-center space-y-2">
+              <span class="text-[10px] uppercase font-bold text-slate-300">1. Front Photo</span>
+              <div id="preview-box-0" class="h-28 rounded-lg bg-brand-card/80 border border-dashed border-brand-border flex items-center justify-center overflow-hidden">
+                <i data-lucide="image" class="w-6 h-6 text-slate-500"></i>
+              </div>
+              <label class="block cursor-pointer px-2 py-1.5 bg-brand-border hover:bg-brand-orange/80 hover:text-white text-slate-300 rounded-lg text-[10px] font-bold transition">
+                <span>Upload Front</span>
+                <input type="file" accept="image/*" class="hidden" onchange="handleImageSlotUpload(event, 0)" required>
+              </label>
+            </div>
+
+            <!-- Photo 2: Back -->
+            <div class="bg-brand-navy p-2.5 rounded-xl border border-brand-border text-center space-y-2">
+              <span class="text-[10px] uppercase font-bold text-slate-300">2. Back Photo</span>
+              <div id="preview-box-1" class="h-28 rounded-lg bg-brand-card/80 border border-dashed border-brand-border flex items-center justify-center overflow-hidden">
+                <i data-lucide="image" class="w-6 h-6 text-slate-500"></i>
+              </div>
+              <label class="block cursor-pointer px-2 py-1.5 bg-brand-border hover:bg-brand-orange/80 hover:text-white text-slate-300 rounded-lg text-[10px] font-bold transition">
+                <span>Upload Back</span>
+                <input type="file" accept="image/*" class="hidden" onchange="handleImageSlotUpload(event, 1)" required>
+              </label>
+            </div>
+
+            <!-- Photo 3: Fabric -->
+            <div class="bg-brand-navy p-2.5 rounded-xl border border-brand-border text-center space-y-2">
+              <span class="text-[10px] uppercase font-bold text-slate-300">3. Fabric Texture</span>
+              <div id="preview-box-2" class="h-28 rounded-lg bg-brand-card/80 border border-dashed border-brand-border flex items-center justify-center overflow-hidden">
+                <i data-lucide="image" class="w-6 h-6 text-slate-500"></i>
+              </div>
+              <label class="block cursor-pointer px-2 py-1.5 bg-brand-border hover:bg-brand-orange/80 hover:text-white text-slate-300 rounded-lg text-[10px] font-bold transition">
+                <span>Upload Fabric</span>
+                <input type="file" accept="image/*" class="hidden" onchange="handleImageSlotUpload(event, 2)" required>
+              </label>
+            </div>
+
+            <!-- Photo 4: Model -->
+            <div class="bg-brand-navy p-2.5 rounded-xl border border-brand-border text-center space-y-2">
+              <span class="text-[10px] uppercase font-bold text-slate-300">4. Model Fit</span>
+              <div id="preview-box-3" class="h-28 rounded-lg bg-brand-card/80 border border-dashed border-brand-border flex items-center justify-center overflow-hidden">
+                <i data-lucide="image" class="w-6 h-6 text-slate-500"></i>
+              </div>
+              <label class="block cursor-pointer px-2 py-1.5 bg-brand-border hover:bg-brand-orange/80 hover:text-white text-slate-300 rounded-lg text-[10px] font-bold transition">
+                <span>Upload Model</span>
+                <input type="file" accept="image/*" class="hidden" onchange="handleImageSlotUpload(event, 3)" required>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Basic Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Product Title</label>
+            <input type="text" id="newProdTitle" placeholder="e.g. Executive Oxford Plain Linen Shirt" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Category</label>
+            <select id="newProdCategory" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+              <option value="shirts">Shirts</option>
+              <option value="polos">Polos</option>
+              <option value="oversized">Oversized T-Shirts</option>
+              <option value="bottoms">Trousers & Pants</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Reseller Base Cost (LKR)</label>
+            <input type="number" id="newProdBaseCost" placeholder="e.g. 1950" required min="100" class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange font-mono">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Special Offer Price (LKR) <span class="text-slate-400 font-normal">(Optional)</span></label>
+            <input type="number" id="newProdOfferPrice" placeholder="e.g. 1750 (Leave blank if normal)" min="100" class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange font-mono">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Available Colors (Comma separated)</label>
+            <input type="text" id="newProdColors" placeholder="e.g. Jet Black, Navy Blue, Snow White" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Stock Status</label>
+            <select id="newProdInStock" class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+              <option value="true">In Stock (Available)</option>
+              <option value="false">Out of Stock (Pushed to Bottom)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Description & Social Media Caption</label>
+          <textarea id="newProdDesc" rows="3" placeholder="Enter high-converting description for resellers to copy-paste..." required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-brand-orange hover:bg-brand-orangeLight text-white font-bold rounded-xl transition shadow-lg shadow-brand-orange/20 flex items-center justify-center gap-2 text-sm">
+          <i data-lucide="check" class="w-4 h-4"></i> Publish Product to Catalog
+        </button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- ================= FLOATING ACTION & WHATSAPP ================= -->
+  <!-- 1-Tap Admin Direct WhatsApp Support -->
+  <a href="https://wa.me/94783120371?text=Hello%20EasyBuy%20Dropshipping%20Admin%2C%20I%20am%20a%20reseller%20and%20need%20assistance." target="_blank" rel="noopener noreferrer" class="fixed bottom-20 right-4 z-40 bg-emerald-500 hover:bg-emerald-600 text-white p-3.5 rounded-full shadow-2xl flex items-center justify-center hover:scale-105 transition transform border-2 border-white/20" title="Contact Admin WhatsApp (0783120371)">
+    <i data-lucide="message-circle" class="w-6 h-6"></i>
+  </a>
+
+  <!-- ================= CLEAN BOTTOM NAVIGATION BAR ================= -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 glass-nav border-t border-brand-border/70 py-2 px-3">
+    <div class="max-w-md mx-auto flex items-center justify-around text-slate-400 text-[11px] font-semibold">
+      
+      <button onclick="switchTab('archive')" id="nav-btn-archive" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl transition text-brand-orange">
+        <i data-lucide="layout-grid" class="w-5 h-5"></i>
+        <span>Catalog</span>
+      </button>
+
+      <button onclick="switchTab('orders')" id="nav-btn-orders" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl transition hover:text-white">
+        <div class="relative">
+          <i data-lucide="package" class="w-5 h-5"></i>
+          <span id="navOrdersBadge" class="hidden absolute -top-1 -right-2 bg-brand-orange text-white text-[9px] px-1 rounded-full font-bold">0</span>
+        </div>
+        <span>Orders</span>
+      </button>
+
+      <!-- Admin Tab: Resellers (Visible only when logged in as admin) -->
+      <button onclick="switchTab('resellers')" id="nav-btn-resellers" class="hidden flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl transition hover:text-white">
+        <i data-lucide="users" class="w-5 h-5"></i>
+        <span>Resellers</span>
+      </button>
+
+      <!-- Admin Tab: Add Item (Visible only when logged in as admin) -->
+      <button onclick="switchTab('add-item')" id="nav-btn-add-item" class="hidden flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl transition hover:text-white">
+        <i data-lucide="plus-circle" class="w-5 h-5"></i>
+        <span>Add Item</span>
+      </button>
+
+      <button onclick="switchTab('account')" id="nav-btn-account" class="flex flex-col items-center gap-1 py-1 px-2.5 rounded-xl transition hover:text-white">
+        <i data-lucide="user" class="w-5 h-5"></i>
+        <span>Account</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ================= MODALS & POPUPS ================= -->
+
+  <!-- 1. SILENT AUTH MODAL (ADMIN / RESELLER) -->
+  <div id="authModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-brand-card border border-brand-border rounded-2xl max-w-sm w-full p-5 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-brand-border pb-3">
+        <div>
+          <h3 class="text-base font-bold text-white">Reseller Authentication</h3>
+          <p class="text-xs text-slate-400">EasyBuy Dropshipping Access Portal</p>
+        </div>
+        <button onclick="closeAuthModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="authForm" onsubmit="handleAuthSubmit(event)" class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Your Full Name</label>
+          <input type="text" id="authNameInput" placeholder="e.g. Kasun Perera" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Email Address</label>
+          <input type="email" id="authEmailInput" placeholder="name@domain.com" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">WhatsApp Number</label>
+          <input type="tel" id="authPhoneInput" placeholder="e.g. 0783120371" class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+        </div>
+
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <label class="text-slate-300 font-medium">Password</label>
+            <button type="button" onclick="generateStrongPassword()" class="text-brand-orange text-[10px] font-bold hover:underline">
+              ⚡ Generate Strong Password
+            </button>
+          </div>
+          <input type="text" id="authPasswordInput" placeholder="Enter or generate password" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white font-mono focus:outline-none focus:border-brand-orange">
+        </div>
+
+        <button type="submit" class="w-full py-2.5 bg-brand-orange hover:bg-brand-orangeLight text-white font-bold rounded-xl transition shadow-lg shadow-brand-orange/20">
+          Sign In / Unlock Account
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 2. ORDER BOOKING MODAL -->
+  <div id="orderBookingModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-3 overflow-y-auto">
+    <div class="bg-brand-card border border-brand-border rounded-2xl max-w-lg w-full p-4 sm:p-5 shadow-2xl space-y-4 my-auto">
+      
+      <div class="flex items-center justify-between border-b border-brand-border pb-3">
+        <div>
+          <h3 class="text-base font-bold text-white flex items-center gap-1.5">
+            <i data-lucide="shopping-bag" class="w-4 h-4 text-brand-orange"></i> Book Reseller Order
+          </h3>
+          <p class="text-xs text-slate-400" id="orderModalProdTitle">Product Title</p>
+        </div>
+        <button onclick="closeOrderModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Live Calculation Card -->
+      <div class="bg-brand-navy/90 p-3 rounded-xl border border-brand-border grid grid-cols-3 gap-2 text-center text-xs">
+        <div>
+          <span class="text-[10px] text-slate-400 block">Reseller Cost</span>
+          <span class="font-bold text-white text-sm" id="calcBaseCost">LKR 0</span>
+        </div>
+        <div>
+          <span class="text-[10px] text-slate-400 block">Delivery (COD)</span>
+          <span class="font-bold text-amber-400 text-sm">LKR 450</span>
+        </div>
+        <div>
+          <span class="text-[10px] text-slate-400 block">Your Profit</span>
+          <span class="font-black text-emerald-400 text-sm" id="calcProfit">LKR 0</span>
+        </div>
+      </div>
+
+      <form id="orderForm" onsubmit="handlePlaceOrder(event)" class="space-y-3 text-xs">
+        <input type="hidden" id="bookingProductId">
+
+        <!-- Variant Selection -->
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Select Size</label>
+            <select id="bookingSize" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange font-semibold">
+              <option value="S">S - Small (Chest 38")</option>
+              <option value="M" selected>M - Medium (Chest 40")</option>
+              <option value="L">L - Large (Chest 42")</option>
+              <option value="XL">XL - Extra Large (Chest 44")</option>
+              <option value="XXL">XXL - Double XL (Chest 46")</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Select Color</label>
+            <select id="bookingColor" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+              <!-- Injected dynamically based on product -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Pricing: Selling Price -->
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Customer Item Selling Price (Without Delivery)</label>
+          <div class="relative">
+            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold">LKR</span>
+            <input type="number" id="bookingSellingPrice" oninput="updateOrderCalculations()" placeholder="e.g. 2750" required min="100" class="w-full pl-12 pr-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white font-mono font-bold focus:outline-none focus:border-brand-orange">
+          </div>
+          <div class="flex justify-between items-center text-[10px] text-slate-400 mt-1">
+            <span>Customer will pay total: <b id="calcTotalCOD" class="text-white font-mono">LKR 450</b> (Item + LKR 450 Islandwide Delivery)</span>
+          </div>
+        </div>
+
+        <!-- Customer Delivery Details -->
+        <div class="border-t border-brand-border/60 pt-2.5 space-y-2.5">
+          <p class="font-bold text-white text-[11px] uppercase tracking-wider flex items-center gap-1.5">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand-orange"></i> Customer Delivery Information
+          </p>
+
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Customer Full Name</label>
+            <input type="text" id="custName" placeholder="Full name of receiver" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+          </div>
+
+          <!-- Mandatory 2 Phone Numbers -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">Primary Phone <span class="text-rose-400">*</span></label>
+              <input type="tel" id="custPhone1" placeholder="e.g. 0771234567" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+            </div>
+            <div>
+              <label class="block text-slate-300 font-medium mb-1">Secondary Phone (Mandatory) <span class="text-rose-400">*</span></label>
+              <input type="tel" id="custPhone2" placeholder="e.g. 0719876543" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Full Postal Delivery Address</label>
+            <textarea id="custAddress" rows="2" placeholder="House No, Street name, Town / Area" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Delivery District</label>
+            <select id="custDistrict" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+              <option value="">Select Sri Lankan District</option>
+              <option value="Colombo">Colombo</option>
+              <option value="Gampaha">Gampaha</option>
+              <option value="Kalutara">Kalutara</option>
+              <option value="Kandy">Kandy</option>
+              <option value="Matale">Matale</option>
+              <option value="Nuwara Eliya">Nuwara Eliya</option>
+              <option value="Galle">Galle</option>
+              <option value="Matara">Matara</option>
+              <option value="Hambantota">Hambantota</option>
+              <option value="Jaffna">Jaffna</option>
+              <option value="Kilinochchi">Kilinochchi</option>
+              <option value="Mannar">Mannar</option>
+              <option value="Vavuniya">Vavuniya</option>
+              <option value="Mullaitivu">Mullaitivu</option>
+              <option value="Batticaloa">Batticaloa</option>
+              <option value="Ampara">Ampara</option>
+              <option value="Trincomalee">Trincomalee</option>
+              <option value="Kurunegala">Kurunegala</option>
+              <option value="Puttalam">Puttalam</option>
+              <option value="Anuradhapura">Anuradhapura</option>
+              <option value="Polonnaruwa">Polonnaruwa</option>
+              <option value="Badulla">Badulla</option>
+              <option value="Monaragala">Monaragala</option>
+              <option value="Ratnapura">Ratnapura</option>
+              <option value="Kegalle">Kegalle</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-brand-orange hover:bg-brand-orangeLight text-white font-bold rounded-xl transition shadow-xl shadow-brand-orange/30 flex items-center justify-center gap-2 text-sm">
+          <i data-lucide="check-circle" class="w-4 h-4"></i> Confirm & Generate Order Slip
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. LOOKBOOK & CAPTION MODAL -->
+  <div id="lookbookModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-3 overflow-y-auto">
+    <div class="bg-brand-card border border-brand-border rounded-2xl max-w-lg w-full p-4 sm:p-5 shadow-2xl space-y-3.5 my-auto">
+      <div class="flex items-center justify-between border-b border-brand-border pb-2.5">
+        <div>
+          <h3 class="text-sm font-bold text-white" id="lookbookTitle">Lookbook & Gallery</h3>
+          <p class="text-[11px] text-slate-400">All 4 Photos & One-Tap Social Media Caption</p>
+        </div>
+        <button onclick="closeLookbookModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Main Photo Display -->
+      <div class="relative w-full h-72 sm:h-80 rounded-xl overflow-hidden bg-brand-navy border border-brand-border">
+        <img id="lookbookMainImg" src="" alt="Product Lookbook" class="w-full h-full object-cover">
+        <span id="lookbookBadge" class="absolute top-2 left-2 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-black/70 backdrop-blur text-white border border-white/20">Front</span>
+      </div>
+
+      <!-- 4 Photo Thumbnails -->
+      <div class="grid grid-cols-4 gap-2" id="lookbookThumbs">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Caption & Copy -->
+      <div class="bg-brand-navy p-3 rounded-xl border border-brand-border space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] font-bold text-brand-orange uppercase">Social Selling Caption</span>
+          <button onclick="copyLookbookCaption()" class="px-2.5 py-1 bg-brand-orange/20 hover:bg-brand-orange/30 border border-brand-orange/40 text-brand-orange rounded-lg text-[10px] font-bold flex items-center gap-1 transition">
+            <i data-lucide="copy" class="w-3 h-3"></i> <span id="copyBtnText">Copy Caption</span>
+          </button>
+        </div>
+        <p id="lookbookCaptionText" class="text-xs text-slate-300 font-mono whitespace-pre-line leading-relaxed max-h-36 overflow-y-auto p-1 bg-black/30 rounded border border-white/5"></p>
+      </div>
+
+      <div class="flex gap-2">
+        <button onclick="triggerOrderFromLookbook()" class="w-full py-2.5 bg-brand-orange hover:bg-brand-orangeLight text-white font-bold rounded-xl text-xs transition shadow-lg shadow-brand-orange/20 flex items-center justify-center gap-1.5">
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i> Book This Item Now
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. SIZE CHART GUIDE MODAL -->
+  <div id="sizeGuideModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-brand-card border border-brand-border rounded-2xl max-w-md w-full p-5 shadow-2xl space-y-3.5">
+      <div class="flex items-center justify-between border-b border-brand-border pb-2.5">
+        <div class="flex items-center gap-2">
+          <i data-lucide="ruler" class="w-5 h-5 text-brand-orange"></i>
+          <h3 class="text-sm font-bold text-white">EasyBuy Standard Size Chart</h3>
+        </div>
+        <button onclick="closeSizeGuideModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <p class="text-xs text-slate-400">ඔබගේ පාරිභෝගිකයාගේ සිරුරට නිවැරදි ප්‍රමාණය (Chest & Length) තෝරා ගැනීමට උපදෙස් දෙන්න.</p>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-300 border-collapse">
+          <thead>
+            <tr class="border-b border-brand-border text-brand-orange font-bold uppercase text-[10px]">
+              <th class="py-2 px-2">Size</th>
+              <th class="py-2 px-2">Chest (Inches)</th>
+              <th class="py-2 px-2">Length (Inches)</th>
+              <th class="py-2 px-2">Shoulder</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-brand-border/40 font-mono">
+            <tr>
+              <td class="py-2 px-2 font-bold text-white">S (Small)</td>
+              <td class="py-2 px-2">38"</td>
+              <td class="py-2 px-2">27"</td>
+              <td class="py-2 px-2">16.5"</td>
+            </tr>
+            <tr class="bg-brand-navy/40">
+              <td class="py-2 px-2 font-bold text-white">M (Medium)</td>
+              <td class="py-2 px-2">40"</td>
+              <td class="py-2 px-2">28"</td>
+              <td class="py-2 px-2">17.5"</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-2 font-bold text-white">L (Large)</td>
+              <td class="py-2 px-2">42"</td>
+              <td class="py-2 px-2">29"</td>
+              <td class="py-2 px-2">18.5"</td>
+            </tr>
+            <tr class="bg-brand-navy/40">
+              <td class="py-2 px-2 font-bold text-white">XL</td>
+              <td class="py-2 px-2">44"</td>
+              <td class="py-2 px-2">30"</td>
+              <td class="py-2 px-2">19.5"</td>
+            </tr>
+            <tr>
+              <td class="py-2 px-2 font-bold text-white">XXL</td>
+              <td class="py-2 px-2">46"</td>
+              <td class="py-2 px-2">31"</td>
+              <td class="py-2 px-2">20.5"</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-2.5 rounded-xl bg-brand-navy border border-brand-border text-[11px] text-slate-400">
+        💡 <b>Pro Tip:</b> Slim fit සඳහා නිවැරදි ප්‍රමාණයද, Regular/Relaxed fit සඳහා එක් ප්‍රමාණයක් (1 Size larger) වැඩියෙන් තෝරා ගැනීමට උපදෙස් දෙන්න.
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. BONUS TARGETS MODAL -->
+  <div id="bonusModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-brand-card border border-brand-border rounded-2xl max-w-sm w-full p-5 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-brand-border pb-2.5">
+        <div class="flex items-center gap-2">
+          <div class="p-1.5 rounded-lg bg-yellow-400/20 text-yellow-400">
+            <i data-lucide="gift" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-white">Reseller Bonus Targets</h3>
+            <p class="text-[10px] text-slate-400">EasyBuy Special Milestones</p>
+          </div>
+        </div>
+        <button onclick="closeBonusModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-2 text-xs">
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-brand-navy border border-brand-border">
+          <span class="font-medium text-slate-300">🎯 50 Orders Target</span>
+          <span class="font-bold text-amber-400">+LKR 1,250/=</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-brand-navy border border-brand-border">
+          <span class="font-medium text-slate-300">🎯 100 Orders Target</span>
+          <span class="font-bold text-amber-400">+LKR 3,000/=</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-brand-navy border border-brand-border">
+          <span class="font-medium text-slate-300">🎯 250 Orders Target</span>
+          <span class="font-bold text-amber-400">+LKR 8,500/=</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-brand-navy border border-brand-border">
+          <span class="font-medium text-slate-300">🎯 500 Orders Target</span>
+          <span class="font-bold text-brand-orange">+LKR 20,000/=</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-brand-navy border border-brand-border">
+          <span class="font-medium text-slate-300">🎯 750 Orders Target</span>
+          <span class="font-bold text-brand-orange">+LKR 35,000/=</span>
+        </div>
+        <div class="flex items-center justify-between p-2.5 rounded-xl bg-gradient-to-r from-amber-500/20 to-brand-orange/20 border border-brand-orange/40">
+          <span class="font-bold text-white">👑 1000 Orders (VIP Tier)</span>
+          <span class="font-black text-amber-300">+LKR 50,000/=</span>
+        </div>
+      </div>
+
+      <p class="text-[11px] text-slate-400 text-center">Bonus මුදල් ඔබගේ සාමාන්‍ය කොමිස් වලට අමතරව Milestone එක සම්පූර්ණ වූ වහාම බැරවේ.</p>
+    </div>
+  </div>
+
+  <!-- 6. GENERATED ORDER RECEIPT SLIP MODAL (Capturable via html2canvas) -->
+  <div id="receiptModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-3 overflow-y-auto">
+    <div class="max-w-sm w-full space-y-3 my-auto">
+      
+      <!-- Capturable Slip Element -->
+      <div id="receiptSlipCapture" class="bg-[#0c1a30] text-slate-100 p-5 rounded-2xl border-2 border-brand-orange shadow-2xl space-y-4">
+        
+        <!-- Receipt Header -->
+        <div class="flex items-center justify-between border-b border-brand-border pb-3">
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-lg bg-brand-orange flex items-center justify-center text-white">
+              <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <p class="font-black text-white text-base tracking-tight">Easy<span class="text-brand-orange">Buy</span></p>
+              <p class="text-[9px] text-slate-400 uppercase tracking-widest font-bold">Official Order Booking Slip</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-[10px] font-mono text-brand-orange font-bold block" id="recOrderId">ORD-0000</span>
+            <span class="text-[9px] text-slate-400" id="recDate">2026-00-00</span>
+          </div>
+        </div>
+
+        <!-- Product Snapshot & Size -->
+        <div class="flex items-center space-x-3 bg-brand-card/90 p-2.5 rounded-xl border border-brand-border">
+          <img id="recProdImg" src="" alt="Item" class="w-16 h-16 rounded-lg object-cover bg-black shrink-0">
+          <div class="space-y-0.5 overflow-hidden">
+            <p class="text-xs font-bold text-white truncate" id="recProdTitle">Product Name</p>
+            <p class="text-[11px] text-brand-orange font-medium">Size: <span id="recSize" class="font-bold text-white">M</span> | Color: <span id="recColor" class="font-bold text-white">Black</span></p>
+            <p class="text-[10px] text-slate-400">Reseller: <span id="recResellerName" class="text-slate-300">Name</span></p>
+          </div>
+        </div>
+
+        <!-- Customer Destination Details -->
+        <div class="text-xs space-y-1 bg-brand-navy p-3 rounded-xl border border-brand-border">
+          <p class="text-[10px] uppercase font-bold text-brand-orange">Customer & Delivery Info</p>
+          <p class="font-bold text-white" id="recCustName">Customer Name</p>
+          <p class="text-slate-300 leading-snug" id="recCustAddress">Address line goes here</p>
+          <p class="text-slate-400 font-mono text-[11px]" id="recCustPhones">0771234567 / 0719876543</p>
+          <p class="text-amber-300 font-medium text-[11px]">District: <span id="recCustDistrict">Colombo</span></p>
+        </div>
+
+        <!-- Financial Summary -->
+        <div class="space-y-1.5 text-xs pt-1 border-t border-brand-border">
+          <div class="flex justify-between text-slate-400">
+            <span>Item Price:</span>
+            <span class="font-mono text-white" id="recItemPrice">LKR 0</span>
+          </div>
+          <div class="flex justify-between text-slate-400">
+            <span>Islandwide Delivery:</span>
+            <span class="font-mono text-white">LKR 450</span>
+          </div>
+          <div class="flex justify-between text-sm font-black border-t border-brand-border pt-1.5 text-white">
+            <span class="text-brand-orange">TOTAL COD AMOUNT:</span>
+            <span class="font-mono text-amber-400" id="recTotalCOD">LKR 0</span>
+          </div>
+        </div>
+
+        <!-- Footer Tag -->
+        <div class="text-center pt-1 border-t border-brand-border/40 text-[9px] text-slate-400">
+          EasyBuy Dropshipping Sri Lanka • www.easybuy.lk
+        </div>
+      </div>
+
+      <!-- Action Buttons for the Reseller -->
+      <div class="flex gap-2">
+        <button onclick="downloadReceiptImage()" class="flex-1 py-2.5 bg-brand-card hover:bg-brand-border text-white rounded-xl text-xs font-bold border border-brand-border flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="download" class="w-4 h-4 text-brand-orange"></i> Save Slip PNG
+        </button>
+        <button onclick="sendOrderToAdminWhatsApp()" class="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition shadow-lg shadow-emerald-600/30">
+          <i data-lucide="send" class="w-4 h-4"></i> Send to Admin WhatsApp
+        </button>
+      </div>
+      <button onclick="closeReceiptModal()" class="w-full text-center text-xs text-slate-400 hover:text-white py-1">
+        Close Window
+      </button>
+    </div>
+  </div>
+
+  <!-- 7. ADMIN RESELLER TOUCH PROFILE MODAL -->
+  <div id="resellerProfileModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-3 overflow-y-auto">
+    <div class="bg-brand-card border border-brand-border rounded-2xl max-w-lg w-full p-4 sm:p-5 shadow-2xl space-y-4 my-auto">
+      
+      <div class="flex items-center justify-between border-b border-brand-border pb-3">
+        <div>
+          <h3 class="text-base font-bold text-white" id="admResellerName">Reseller Profile</h3>
+          <p class="text-xs text-brand-orange font-medium" id="admResellerBusiness">Business Name</p>
+        </div>
+        <button onclick="closeResellerProfileModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Commission Breakdown Grid -->
+      <div class="grid grid-cols-2 gap-2 text-xs">
+        <div class="bg-brand-navy p-3 rounded-xl border border-brand-border">
+          <span class="text-[10px] text-slate-400 block">Pending Payout (Wed)</span>
+          <span class="font-bold text-amber-400 text-base" id="admResellerPending">LKR 0</span>
+        </div>
+        <div class="bg-brand-navy p-3 rounded-xl border border-brand-border">
+          <span class="text-[10px] text-slate-400 block">Delivered Commissions</span>
+          <span class="font-bold text-emerald-400 text-base" id="admResellerDelivered">LKR 0</span>
+        </div>
+        <div class="bg-brand-navy p-3 rounded-xl border border-brand-border">
+          <span class="text-[10px] text-slate-400 block">In-Transit (Shipped)</span>
+          <span class="font-bold text-blue-400 text-base" id="admResellerShipped">LKR 0</span>
+        </div>
+        <div class="bg-brand-navy p-3 rounded-xl border border-brand-border">
+          <span class="text-[10px] text-slate-400 block">Returned Commissions</span>
+          <span class="font-bold text-rose-400 text-base" id="admResellerReturned">LKR 0</span>
+        </div>
+      </div>
+
+      <!-- Direct Contact & Batch Actions -->
+      <div class="flex gap-2">
+        <a id="admResellerWhatsAppBtn" href="#" target="_blank" class="flex-1 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="message-circle" class="w-4 h-4"></i> Chat on WhatsApp
+        </a>
+        <button onclick="markAllDeliveredAsPaidForReseller()" class="flex-1 py-2 bg-brand-orange hover:bg-brand-orangeLight text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition">
+          <i data-lucide="check-check" class="w-4 h-4"></i> Mark Delivered as Paid
+        </button>
+      </div>
+
+      <!-- Bank Payout Card with 1-Click Copy -->
+      <div class="bg-brand-navy p-3.5 rounded-xl border border-brand-border space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] uppercase font-bold text-slate-300 flex items-center gap-1.5">
+            <i data-lucide="landmark" class="w-3.5 h-3.5 text-brand-orange"></i> Bank Payout Details
+          </span>
+          <button onclick="copyResellerBankDetails()" class="px-2.5 py-1 bg-brand-border hover:bg-brand-orange/40 text-brand-orange rounded-lg text-[10px] font-bold flex items-center gap-1 transition">
+            <i data-lucide="copy" class="w-3 h-3"></i> <span id="copyBankBtnText">Copy Bank Info</span>
+          </button>
+        </div>
+        <div class="text-xs space-y-1 font-mono text-slate-200">
+          <p><span class="text-slate-400">Bank:</span> <span id="admBankName" class="font-semibold text-white">Sampath Bank</span></p>
+          <p><span class="text-slate-400">Branch:</span> <span id="admBankBranch">Nugegoda</span></p>
+          <p><span class="text-slate-400">Account No:</span> <span id="admBankAcc" class="text-amber-300 font-bold">109283746192</span></p>
+          <p><span class="text-slate-400">Account Name:</span> <span id="admBankHolder">Kasun Perera</span></p>
+        </div>
+      </div>
+
+      <!-- Individual Orders breakdown with Paid/Unpaid switches -->
+      <div class="space-y-2">
+        <span class="text-xs font-bold text-white block">Order-wise Commission Payout Status:</span>
+        <div id="admResellerOrdersList" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+          <!-- Injected via JavaScript -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. ADMIN EDIT PRODUCT MODAL -->
+  <div id="editProductModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm hidden items-center justify-center p-3 overflow-y-auto">
+    <div class="bg-brand-card border border-brand-border rounded-2xl max-w-md w-full p-4 sm:p-5 shadow-2xl space-y-4 my-auto">
+      <div class="flex items-center justify-between border-b border-brand-border pb-2.5">
+        <h3 class="text-sm font-bold text-white">Edit Product Details</h3>
+        <button onclick="closeEditProductModal()" class="text-slate-400 hover:text-white p-1">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="editProductForm" onsubmit="handleSaveProductEdit(event)" class="space-y-3 text-xs">
+        <input type="hidden" id="editProdId">
+
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Product Title</label>
+          <input type="text" id="editProdTitle" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+        </div>
+
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Reseller Base Cost (LKR)</label>
+            <input type="number" id="editProdCost" required min="100" class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white font-mono focus:outline-none focus:border-brand-orange">
+          </div>
+          <div>
+            <label class="block text-slate-300 font-medium mb-1">Offer Price (Optional)</label>
+            <input type="number" id="editProdOffer" class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white font-mono focus:outline-none focus:border-brand-orange">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Stock Status</label>
+          <select id="editProdStock" class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange">
+            <option value="true">In Stock (Normal Position)</option>
+            <option value="false">Out of Stock (Auto-pushed to bottom)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-medium mb-1">Description</label>
+          <textarea id="editProdDesc" rows="3" required class="w-full px-3 py-2 bg-brand-navy border border-brand-border rounded-xl text-white focus:outline-none focus:border-brand-orange"></textarea>
+        </div>
+
+        <div class="flex gap-2 pt-1">
+          <button type="submit" class="flex-1 py-2.5 bg-brand-orange hover:bg-brand-orangeLight text-white font-bold rounded-xl transition">
+            Save Changes
+          </button>
+          <button type="button" onclick="confirmDeleteProduct()" class="px-3 py-2.5 bg-rose-600/20 text-rose-300 hover:bg-rose-600/30 border border-rose-500/30 rounded-xl font-bold transition">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- GENERIC CUSTOM NOTIFICATION TOAST -->
+  <div id="toastMessage" class="fixed top-5 right-5 z-50 transform translate-y-[-150%] transition-transform duration-300 bg-brand-navy border-2 border-brand-orange text-white px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-2 text-xs font-semibold">
+    <i data-lucide="info" class="w-4 h-4 text-brand-orange"></i>
+    <span id="toastText">Action completed</span>
+  </div>
+
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
+  <script>
+    /* ----------------------------------------------------
+       INITIAL STATE & RICH MOCK DATA
+    ---------------------------------------------------- */
+    const ADMIN_EMAIL = 'dilumtiran2003@gmail.com';
+    const ADMIN_PHONE = '0783120371';
+    const ADMIN_INT_PHONE = '94783120371';
+    const FLAT_DELIVERY_CHARGE = 450;
+
+    // Current Session State
+    let currentUser = {
+      name: 'Guest Reseller',
+      email: '',
+      phone: '',
+      isAdmin: false,
+      businessName: '',
+      bankDetails: null
+    };
+
+    let activeCategory = 'all';
+    let activeOrderStatus = 'ALL';
+    let currentUploadedImages = [null, null, null, null];
+    let activeLookbookItem = null;
+    let activeReceiptData = null;
+    let selectedResellerForModal = null;
+
+    // Default Curated Products
+    let products = [
+      {
+        id: 'PROD-101',
+        title: 'Executive Royal Linen Button-Down Shirt',
+        category: 'shirts',
+        baseCost: 1950,
+        specialOfferPrice: 1750,
+        isOffer: true,
+        inStock: true,
+        colors: ['Jet Black', 'Navy Blue', 'Ivory White', 'Sage Green'],
+        images: [
+          'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80', // Front
+          'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=600&q=80', // Back
+          'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=600&q=80', // Fabric
+          'https://images.unsplash.com/photo-1620012253295-c15c429f66bf?auto=format&fit=crop&w=600&q=80'  // Model
+        ],
+        desc: "🔥 EXECUTIVE ROYAL LINEN SHIRT 🔥\n\n- 100% Breathable European Linen Blend\n- Perfect for Island Climate & Smart-Casual Outings\n- Sizes: S, M, L, XL, XXL\n- Islandwide Fast Cash On Delivery (LKR 450)\n- DM or WhatsApp us to order now!"
+      },
+      {
+        id: 'PROD-102',
+        title: 'Signature Heavy Pique Classic Polo',
+        category: 'polos',
+        baseCost: 1650,
+        specialOfferPrice: null,
+        isOffer: false,
+        inStock: true,
+        colors: ['Crimson Red', 'Midnight Black', 'Heather Grey'],
+        images: [
+          'https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=600&q=80'
+        ],
+        desc: "⚡ SIGNATURE HEAVY PIQUE POLO ⚡\n\n- 240 GSM Pure Combed Cotton\n- Anti-wrinkle Collar & Dual Stitch Reinforcement\n- Available in 3 Luxury Colors\n- Fast Islandwide Courier Delivery"
+      },
+      {
+        id: 'PROD-103',
+        title: 'Urban Streetwear Oversized Drop-Shoulder Tee',
+        category: 'oversized',
+        baseCost: 1450,
+        specialOfferPrice: 1300,
+        isOffer: true,
+        inStock: true,
+        colors: ['Washed Black', 'Sand Beige', 'Olive'],
+        images: [
+          'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1503342394128-c104d54dba01?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?auto=format&fit=crop&w=600&q=80'
+        ],
+        desc: "🛹 STREETWEAR OVERSIZED TEE 🛹\n\n- 220 GSM Bio-washed Fabric\n- Modern Boxy Drop-Shoulder Fit\n- Guaranteed No-Shrinkage Fabric\n- Islandwide COD Available"
+      },
+      {
+        id: 'PROD-104',
+        title: 'Minimalist Oxford Mandarin Collar Shirt',
+        category: 'shirts',
+        baseCost: 1850,
+        specialOfferPrice: null,
+        isOffer: false,
+        inStock: false, // Out of stock to demonstrate automatic push-to-bottom
+        colors: ['Pure White', 'Sky Blue', 'Charcoal'],
+        images: [
+          'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1620012253295-c15c429f66bf?auto=format&fit=crop&w=600&q=80'
+        ],
+        desc: "✨ MANDARIN COLLAR OXFORD SHIRT ✨\n\n- Crisp Mandarin Band Collar\n- Wrinkle-Resistant Finish\n- Out of Stock currently - Restocking soon!"
+      }
+    ];
+
+    // Seed Resellers
+    let resellers = [
+      {
+        id: 'RES-01',
+        name: 'Dilum Tiran (Admin)',
+        email: 'dilumtiran2003@gmail.com',
+        phone: '0783120371',
+        businessName: 'ZYRO / EasyBuy HQ',
+        bankName: 'Sampath Bank',
+        bankBranch: 'Nugegoda',
+        bankAccount: '109283746192',
+        bankHolder: 'Dilum Tiran'
+      },
+      {
+        id: 'RES-02',
+        name: 'Kasun Perera',
+        email: 'kasun.style@gmail.com',
+        phone: '0773456789',
+        businessName: 'K-Urban Clothing',
+        bankName: 'Commercial Bank',
+        bankBranch: 'Kandy City Centre',
+        bankAccount: '8004561234',
+        bankHolder: 'K. A. Kasun Perera'
+      },
+      {
+        id: 'RES-03',
+        name: 'Nimesha Fernando',
+        email: 'nimesha.dropship@gmail.com',
+        phone: '0718899223',
+        businessName: 'Vogue Lanka Online',
+        bankName: 'Bank of Ceylon (BOC)',
+        bankBranch: 'Maharagama',
+        bankAccount: '00987654321',
+        bankHolder: 'M. Nimesha Fernando'
+      }
+    ];
+
+    // Seed Orders
+    let orders = [
+      {
+        id: 'ORD-8921',
+        productId: 'PROD-101',
+        productTitle: 'Executive Royal Linen Button-Down Shirt',
+        productImg: 'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80',
+        resellerEmail: 'kasun.style@gmail.com',
+        resellerName: 'Kasun Perera',
+        size: 'L',
+        color: 'Navy Blue',
+        baseCost: 1750,
+        sellingPrice: 2850,
+        commission: 1100,
+        deliveryFee: 450,
+        totalCOD: 3300,
+        customerName: 'Roshan Wickramasinghe',
+        customerPhone1: '0777123987',
+        customerPhone2: '0712345678',
+        customerAddress: 'No 45/A, Temple Road, Maharagama',
+        district: 'Colombo',
+        status: 'DELIVERED', // PENDING, SHIPPED, DELIVERED, RETURNED
+        isCommissionPaid: false, // Wednesday Payout status
+        trackingNumber: 'KMB-89210-LK',
+        date: '2026-11-04'
+      },
+      {
+        id: 'ORD-8922',
+        productId: 'PROD-102',
+        productTitle: 'Signature Heavy Pique Classic Polo',
+        productImg: 'https://images.unsplash.com/photo-1581655353564-df123a1eb820?auto=format&fit=crop&w=600&q=80',
+        resellerEmail: 'kasun.style@gmail.com',
+        resellerName: 'Kasun Perera',
+        size: 'M',
+        color: 'Midnight Black',
+        baseCost: 1650,
+        sellingPrice: 2600,
+        commission: 950,
+        deliveryFee: 450,
+        totalCOD: 3050,
+        customerName: 'Anura Bandara',
+        customerPhone1: '0754433221',
+        customerPhone2: '0778899001',
+        customerAddress: '12, Peradeniya Road, Kandy',
+        district: 'Kandy',
+        status: 'SHIPPED',
+        isCommissionPaid: false,
+        trackingNumber: 'PRMPT-55421',
+        date: '2026-11-06'
+      },
+      {
+        id: 'ORD-8923',
+        productId: 'PROD-103',
+        productTitle: 'Urban Streetwear Oversized Drop-Shoulder Tee',
+        productImg: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80',
+        resellerEmail: 'nimesha.dropship@gmail.com',
+        resellerName: 'Nimesha Fernando',
+        size: 'XL',
+        color: 'Washed Black',
+        baseCost: 1300,
+        sellingPrice: 2400,
+        commission: 1100,
+        deliveryFee: 450,
+        totalCOD: 2850,
+        customerName: 'Sanjeewa Silva',
+        customerPhone1: '0715566778',
+        customerPhone2: '0789900112',
+        customerAddress: '88, Main Street, Negombo',
+        district: 'Gampaha',
+        status: 'DELIVERED',
+        isCommissionPaid: true,
+        trackingNumber: 'KMB-90112-LK',
+        date: '2026-10-28'
+      }
+    ];
+
+    /* ----------------------------------------------------
+       INITIALIZATION
+    ---------------------------------------------------- */
+    window.onload = function() {
+      // Check existing session
+      const savedUser = sessionStorage.getItem('easybuy_user');
+      if (savedUser) {
+        try {
+          currentUser = JSON.parse(savedUser);
+          updateHeaderUI();
+        } catch(e) {}
+      }
+
+      renderCatalog();
+      renderOrdersList();
+      updateFinancialDashboard();
+      lucide.createIcons();
+    };
+
+    /* ----------------------------------------------------
+       NAVIGATION & TABS
+    ---------------------------------------------------- */
+    function switchTab(tabId) {
+      const tabs = ['archive', 'orders', 'account', 'resellers', 'add-item'];
+      tabs.forEach(t => {
+        const sec = document.getElementById(`tab-${t}`);
+        const btn = document.getElementById(`nav-btn-${t}`);
+        if (sec) sec.classList.add('hidden');
+        if (btn) {
+          btn.classList.remove('text-brand-orange');
+          btn.classList.add('text-slate-400');
+        }
+      });
+
+      const activeSec = document.getElementById(`tab-${tabId}`);
+      const activeBtn = document.getElementById(`nav-btn-${tabId}`);
+      if (activeSec) activeSec.classList.remove('hidden');
+      if (activeBtn) {
+        activeBtn.classList.add('text-brand-orange');
+        activeBtn.classList.remove('text-slate-400');
+      }
+
+      if (tabId === 'archive') renderCatalog();
+      if (tabId === 'orders') renderOrdersList();
+      if (tabId === 'account') updateAccountProfileView();
+      if (tabId === 'resellers') renderAdminResellers();
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      lucide.createIcons();
+    }
+
+    /* ----------------------------------------------------
+       SILENT AUTHENTICATION ENGINE
+       Rule: Resellers see standard login. If 'dilumtiran2003@gmail.com'
+       is entered, silently grant full admin access.
+    ---------------------------------------------------- */
+    function openAuthModal() {
+      document.getElementById('authModal').classList.remove('hidden');
+      document.getElementById('authModal').classList.add('flex');
+    }
+
+    function closeAuthModal() {
+      document.getElementById('authModal').classList.add('hidden');
+      document.getElementById('authModal').classList.remove('flex');
+    }
+
+    function generateStrongPassword() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*';
+      let pwd = '';
+      for (let i = 0; i < 12; i++) {
+        pwd += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      document.getElementById('authPasswordInput').value = pwd;
+      showToast('Strong password generated!');
+    }
+
+    function handleAuthSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('authNameInput').value.trim();
+      const email = document.getElementById('authEmailInput').value.trim().toLowerCase();
+      const phone = document.getElementById('authPhoneInput').value.trim();
+
+      const isAdmin = (email === ADMIN_EMAIL);
+
+      currentUser = {
+        name: name,
+        email: email,
+        phone: phone || '0783120371',
+        isAdmin: isAdmin,
+        businessName: isAdmin ? 'ZYRO & EasyBuy Admin HQ' : (currentUser.businessName || `${name}'s Fashion Hub`),
+        bankDetails: currentUser.bankDetails || null
+      };
+
+      // Add to resellers list if new
+      const exists = resellers.find(r => r.email === email);
+      if (!exists) {
+        resellers.push({
+          id: 'RES-' + (resellers.length + 1).toString().padStart(2, '0'),
+          name: currentUser.name,
+          email: currentUser.email,
+          phone: currentUser.phone,
+          businessName: currentUser.businessName,
+          bankName: 'Sampath Bank',
+          bankBranch: 'Colombo',
+          bankAccount: '109928374',
+          bankHolder: currentUser.name
+        });
+      }
+
+      sessionStorage.setItem('easybuy_user', JSON.stringify(currentUser));
+      updateHeaderUI();
+      closeAuthModal();
+
+      if (isAdmin) {
+        showToast('Silent Admin Access Unlocked 👑');
+      } else {
+        showToast(`Welcome back, ${currentUser.name}!`);
+      }
+
+      renderCatalog();
+      renderOrdersList();
+      updateAccountProfileView();
+    }
+
+    function handleLogout() {
+      currentUser = {
+        name: 'Guest Reseller',
+        email: '',
+        phone: '',
+        isAdmin: false,
+        businessName: '',
+        bankDetails: null
+      };
+      sessionStorage.removeItem('easybuy_user');
+      updateHeaderUI();
+      switchTab('archive');
+      showToast('Logged out successfully');
+    }
+
+    function updateHeaderUI() {
+      const navResellers = document.getElementById('nav-btn-resellers');
+      const navAddItem = document.getElementById('nav-btn-add-item');
+      const authActionBtn = document.getElementById('authActionBtn');
+      const logoutBtn = document.getElementById('logoutBtn');
+
+      if (currentUser.email) {
+        document.getElementById('userNameHeader').innerText = currentUser.name;
+        document.getElementById('userRoleHeader').innerText = currentUser.isAdmin ? '👑 Supreme Admin' : 'Verified Reseller';
+        document.getElementById('userAvatar').innerText = currentUser.name.charAt(0).toUpperCase();
+
+        authActionBtn.classList.add('hidden');
+        logoutBtn.classList.remove('hidden');
+
+        // Toggle Admin specific bottom nav items silently
+        if (currentUser.isAdmin) {
+          navResellers.classList.remove('hidden');
+          navAddItem.classList.remove('hidden');
+        } else {
+          navResellers.classList.add('hidden');
+          navAddItem.classList.add('hidden');
+        }
+      } else {
+        document.getElementById('userNameHeader').innerText = 'Guest Reseller';
+        document.getElementById('userRoleHeader').innerText = 'Tap to Login';
+        document.getElementById('userAvatar').innerText = 'G';
+        authActionBtn.classList.remove('hidden');
+        logoutBtn.classList.add('hidden');
+        navResellers.classList.add('hidden');
+        navAddItem.classList.add('hidden');
+      }
+    }
+
+    /* ----------------------------------------------------
+       PRODUCT CATALOG & 2-COLUMN GRID
+       Auto-sorts Out of Stock items to the bottom.
+    ---------------------------------------------------- */
+    function setCategoryFilter(cat) {
+      activeCategory = cat;
+      document.querySelectorAll('.cat-pill').forEach(btn => {
+        btn.classList.remove('bg-brand-orange', 'text-white');
+        btn.classList.add('bg-brand-card', 'border', 'border-brand-border', 'text-slate-300');
+      });
+      event.target.classList.add('bg-brand-orange', 'text-white');
+      event.target.classList.remove('bg-brand-card', 'text-slate-300');
+      renderCatalog();
+    }
+
+    function renderCatalog() {
+      const grid = document.getElementById('productGrid');
+      const search = document.getElementById('catalogSearch').value.toLowerCase().trim();
+
+      // Filter
+      let filtered = products.filter(p => {
+        const matchesSearch = p.title.toLowerCase().includes(search) || p.desc.toLowerCase().includes(search);
+        let matchesCat = true;
+        if (activeCategory === 'offers') matchesCat = p.isOffer || (p.specialOfferPrice !== null);
+        else if (activeCategory !== 'all') matchesCat = p.category === activeCategory;
+        return matchesSearch && matchesCat;
+      });
+
+      // OUT OF STOCK AUTO-SORTING (In-stock first, out-of-stock strictly bottom)
+      filtered.sort((a, b) => {
+        if (a.inStock === b.inStock) return 0;
+        return a.inStock ? -1 : 1;
+      });
+
+      grid.innerHTML = '';
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-16 text-center text-slate-400">
+            <i data-lucide="package-x" class="w-12 h-12 mx-auto text-slate-500 mb-2"></i>
+            <p class="font-bold">No products found matching your search</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      filtered.forEach(p => {
+        const priceToUse = p.specialOfferPrice ? p.specialOfferPrice : p.baseCost;
+        const offerBadge = p.specialOfferPrice ? `
+          <div class="absolute top-2 left-2 z-10 px-2 py-0.5 rounded-md bg-gradient-to-r from-brand-orange to-rose-600 text-white text-[9px] font-black uppercase tracking-wider badge-glow">
+            EXCLUSIVE OFFER
+          </div>
+        ` : '';
+
+        const stockBadge = !p.inStock ? `
+          <div class="absolute inset-0 bg-black/75 backdrop-blur-[2px] z-20 flex flex-col items-center justify-center text-white">
+            <span class="px-3 py-1 bg-rose-600 font-bold rounded-lg text-xs uppercase tracking-wider shadow-lg">Out of Stock</span>
+            <span class="text-[10px] text-slate-300 mt-1">Restocking Soon</span>
+          </div>
+        ` : '';
+
+        const adminEditBtn = currentUser.isAdmin ? `
+          <button onclick="openEditProductModal('${p.id}', event)" class="p-1.5 bg-black/70 hover:bg-brand-orange text-white rounded-lg transition" title="Edit Product">
+            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+          </button>
+        ` : '';
+
+        const card = document.createElement('div');
+        card.className = `group bg-brand-card border border-brand-border rounded-2xl overflow-hidden flex flex-col relative transition duration-200 hover:border-brand-orange/60 shadow-lg ${!p.inStock ? 'opacity-85' : ''}`;
+        
+        card.innerHTML = `
+          <!-- Image Section -->
+          <div class="relative w-full aspect-[4/5] bg-brand-navy overflow-hidden cursor-pointer" onclick="openLookbookModal('${p.id}')">
+            ${offerBadge}
+            ${stockBadge}
+            <img src="${p.images[0]}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            
+            <!-- Floating Quick Actions -->
+            <div class="absolute top-2 right-2 z-30 flex flex-col gap-1.5">
+              ${adminEditBtn}
+              <button onclick="openLookbookModal('${p.id}', event)" class="p-1.5 bg-black/70 hover:bg-brand-orange text-white rounded-lg transition" title="View 4 Photos & Lookbook">
+                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+
+            <!-- Photos Indicator Pill -->
+            <div class="absolute bottom-2 left-2 z-10 px-2 py-0.5 bg-black/75 rounded text-[9px] font-semibold text-slate-200 flex items-center gap-1 backdrop-blur-sm">
+              <i data-lucide="images" class="w-3 h-3 text-brand-orange"></i> 4 Photos
+            </div>
+          </div>
+
+          <!-- Card Content -->
+          <div class="p-3 flex-1 flex flex-col justify-between space-y-2">
+            <div>
+              <p class="text-[10px] font-semibold text-brand-orange uppercase tracking-wider">${p.category}</p>
+              <h4 class="text-xs sm:text-sm font-bold text-white line-clamp-2 leading-tight">${p.title}</h4>
+            </div>
+
+            <div class="pt-1 border-t border-brand-border/60">
+              <div class="flex items-baseline justify-between">
+                <div>
+                  <span class="text-[10px] text-slate-400 block leading-none">Reseller Cost</span>
+                  <div class="flex items-baseline gap-1 mt-0.5">
+                    <span class="text-sm sm:text-base font-black text-amber-400 font-mono">LKR ${priceToUse.toLocaleString()}</span>
+                    ${p.specialOfferPrice ? `<span class="text-[10px] text-slate-500 line-through font-mono">LKR ${p.baseCost}</span>` : ''}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="grid grid-cols-2 gap-1.5 mt-2.5">
+                <button onclick="copyProductCaption('${p.id}', event)" class="py-1.5 px-2 bg-brand-navy hover:bg-brand-border border border-brand-border rounded-xl text-[10px] font-bold text-slate-300 hover:text-white flex items-center justify-center gap-1 transition">
+                  <i data-lucide="copy" class="w-3 h-3 text-brand-orange"></i> Copy
+                </button>
+                <button onclick="openOrderModal('${p.id}')" ${!p.inStock ? 'disabled' : ''} class="py-1.5 px-2 bg-brand-orange hover:bg-brand-orangeLight disabled:bg-slate-700 text-white rounded-xl text-[10px] font-bold flex items-center justify-center gap-1 transition shadow-md shadow-brand-orange/20">
+                  <i data-lucide="shopping-bag" class="w-3 h-3"></i> Order
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    /* ----------------------------------------------------
+       LOOKBOOK & SOCIAL CAPTION COPY MODAL
+    ---------------------------------------------------- */
+    function openLookbookModal(prodId, event) {
+      if (event) event.stopPropagation();
+      const product = products.find(p => p.id === prodId);
+      if (!product) return;
+
+      activeLookbookItem = product;
+      document.getElementById('lookbookTitle').innerText = product.title;
+      document.getElementById('lookbookMainImg').src = product.images[0];
+      document.getElementById('lookbookBadge').innerText = '1. Front View';
+      document.getElementById('lookbookCaptionText').innerText = product.desc;
+
+      const labels = ['Front', 'Back', 'Fabric', 'Model'];
+      const thumbsContainer = document.getElementById('lookbookThumbs');
+      thumbsContainer.innerHTML = '';
+
+      product.images.forEach((imgUrl, idx) => {
+        const thumb = document.createElement('div');
+        thumb.className = `cursor-pointer h-16 rounded-lg overflow-hidden border-2 ${idx === 0 ? 'border-brand-orange' : 'border-transparent'} relative`;
+        thumb.onclick = () => {
+          document.getElementById('lookbookMainImg').src = imgUrl;
+          document.getElementById('lookbookBadge').innerText = `${idx + 1}. ${labels[idx]} View`;
+          thumbsContainer.querySelectorAll('div').forEach(d => d.classList.replace('border-brand-orange', 'border-transparent'));
+          thumb.classList.replace('border-transparent', 'border-brand-orange');
+        };
+        thumb.innerHTML = `
+          <img src="${imgUrl}" class="w-full h-full object-cover">
+          <span class="absolute bottom-0 inset-x-0 bg-black/70 text-[8px] font-bold text-center text-slate-200">${labels[idx]}</span>
+        `;
+        thumbsContainer.appendChild(thumb);
+      });
+
+      document.getElementById('lookbookModal').classList.remove('hidden');
+      document.getElementById('lookbookModal').classList.add('flex');
+    }
+
+    function closeLookbookModal() {
+      document.getElementById('lookbookModal').classList.add('hidden');
+      document.getElementById('lookbookModal').classList.remove('flex');
+    }
+
+    function triggerOrderFromLookbook() {
+      if (!activeLookbookItem) return;
+      closeLookbookModal();
+      openOrderModal(activeLookbookItem.id);
+    }
+
+    function copyLookbookCaption() {
+      if (!activeLookbookItem) return;
+      const text = activeLookbookItem.desc;
+      copyToClipboardText(text);
+      document.getElementById('copyBtnText').innerText = 'Copied!';
+      setTimeout(() => {
+        document.getElementById('copyBtnText').innerText = 'Copy Caption';
+      }, 2000);
+      showToast('Caption & Details copied to clipboard!');
+    }
+
+    function copyProductCaption(prodId, event) {
+      if (event) event.stopPropagation();
+      const p = products.find(x => x.id === prodId);
+      if (!p) return;
+      copyToClipboardText(p.desc);
+      showToast('Caption copied for Social Media!');
+    }
+
+    function copyToClipboardText(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+      } catch (e) {}
+      document.body.removeChild(textarea);
+    }
+
+    /* ----------------------------------------------------
+       ORDER BOOKING FLOW & AUTOMATIC COMMISSION CALCULATION
+    ---------------------------------------------------- */
+    function openOrderModal(prodId) {
+      const product = products.find(p => p.id === prodId);
+      if (!product) return;
+
+      document.getElementById('bookingProductId').value = product.id;
+      document.getElementById('orderModalProdTitle').innerText = product.title;
+
+      const activeCost = product.specialOfferPrice ? product.specialOfferPrice : product.baseCost;
+      document.getElementById('calcBaseCost').innerText = `LKR ${activeCost.toLocaleString()}`;
+      document.getElementById('bookingSellingPrice').value = activeCost + 800; // Suggested markup
+
+      // Populate Colors
+      const colorSelect = document.getElementById('bookingColor');
+      colorSelect.innerHTML = '';
+      product.colors.forEach(col => {
+        const opt = document.createElement('option');
+        opt.value = col;
+        opt.innerText = col;
+        colorSelect.appendChild(opt);
+      });
+
+      updateOrderCalculations();
+
+      document.getElementById('orderBookingModal').classList.remove('hidden');
+      document.getElementById('orderBookingModal').classList.add('flex');
+    }
+
+    function closeOrderModal() {
+      document.getElementById('orderBookingModal').classList.add('hidden');
+      document.getElementById('orderBookingModal').classList.remove('flex');
+    }
+
+    function updateOrderCalculations() {
+      const prodId = document.getElementById('bookingProductId').value;
+      const product = products.find(p => p.id === prodId);
+      if (!product) return;
+
+      const baseCost = product.specialOfferPrice ? product.specialOfferPrice : product.baseCost;
+      const sellingPrice = parseFloat(document.getElementById('bookingSellingPrice').value) || 0;
+      
+      const profit = Math.max(0, sellingPrice - baseCost);
+      const totalCOD = sellingPrice + FLAT_DELIVERY_CHARGE;
+
+      document.getElementById('calcProfit').innerText = `LKR ${profit.toLocaleString()}`;
+      document.getElementById('calcTotalCOD').innerText = `LKR ${totalCOD.toLocaleString()}`;
+    }
+
+    function handlePlaceOrder(e) {
+      e.preventDefault();
+      const prodId = document.getElementById('bookingProductId').value;
+      const product = products.find(p => p.id === prodId);
+      if (!product) return;
+
+      const baseCost = product.specialOfferPrice ? product.specialOfferPrice : product.baseCost;
+      const sellingPrice = parseFloat(document.getElementById('bookingSellingPrice').value);
+      
+      if (sellingPrice < baseCost) {
+        showToast('Selling price cannot be less than reseller base cost!');
+        return;
+      }
+
+      const orderId = 'ORD-' + Math.floor(1000 + Math.random() * 9000);
+      const profit = sellingPrice - baseCost;
+      const totalCOD = sellingPrice + FLAT_DELIVERY_CHARGE;
+
+      const newOrder = {
+        id: orderId,
+        productId: product.id,
+        productTitle: product.title,
+        productImg: product.images[0],
+        resellerEmail: currentUser.email || 'guest@reseller.lk',
+        resellerName: currentUser.name || 'EasyBuy Reseller',
+        size: document.getElementById('bookingSize').value,
+        color: document.getElementById('bookingColor').value,
+        baseCost: baseCost,
+        sellingPrice: sellingPrice,
+        commission: profit,
+        deliveryFee: FLAT_DELIVERY_CHARGE,
+        totalCOD: totalCOD,
+        customerName: document.getElementById('custName').value.trim(),
+        customerPhone1: document.getElementById('custPhone1').value.trim(),
+        customerPhone2: document.getElementById('custPhone2').value.trim(),
+        customerAddress: document.getElementById('custAddress').value.trim(),
+        district: document.getElementById('custDistrict').value,
+        status: 'PENDING',
+        isCommissionPaid: false,
+        trackingNumber: 'PENDING',
+        date: new Date().toISOString().split('T')[0]
+      };
+
+      orders.unshift(newOrder);
+      closeOrderModal();
+      document.getElementById('orderForm').reset();
+
+      // Launch Generated Receipt Slip & WhatsApp Notification
+      prepareReceiptModal(newOrder);
+      renderOrdersList();
+      updateFinancialDashboard();
+      showToast(`Order ${orderId} submitted successfully!`);
+    }
+
+    /* ----------------------------------------------------
+       RECEIPT SLIP GENERATOR & ADMIN WHATSAPP DISPATCH
+    ---------------------------------------------------- */
+    function prepareReceiptModal(order) {
+      activeReceiptData = order;
+
+      document.getElementById('recOrderId').innerText = order.id;
+      document.getElementById('recDate').innerText = order.date;
+      document.getElementById('recProdImg').src = order.productImg;
+      document.getElementById('recProdTitle').innerText = order.productTitle;
+      document.getElementById('recSize').innerText = order.size;
+      document.getElementById('recColor').innerText = order.color;
+      document.getElementById('recResellerName').innerText = order.resellerName;
+
+      document.getElementById('recCustName').innerText = order.customerName;
+      document.getElementById('recCustAddress').innerText = order.customerAddress;
+      document.getElementById('recCustPhones').innerText = `${order.customerPhone1} / ${order.customerPhone2}`;
+      document.getElementById('recCustDistrict').innerText = order.district;
+
+      document.getElementById('recItemPrice').innerText = `LKR ${order.sellingPrice.toLocaleString()}`;
+      document.getElementById('recTotalCOD').innerText = `LKR ${order.totalCOD.toLocaleString()}`;
+
+      document.getElementById('receiptModal').classList.remove('hidden');
+      document.getElementById('receiptModal').classList.add('flex');
+      lucide.createIcons();
+    }
+
+    function closeReceiptModal() {
+      document.getElementById('receiptModal').classList.add('hidden');
+      document.getElementById('receiptModal').classList.remove('flex');
+    }
+
+    function downloadReceiptImage() {
+      const element = document.getElementById('receiptSlipCapture');
+      if (typeof html2canvas === 'undefined') {
+        showToast('Capture library loading...');
+        return;
+      }
+      html2canvas(element, { scale: 2, backgroundColor: '#0c1a30' }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `EasyBuy-Receipt-${activeReceiptData ? activeReceiptData.id : 'Slip'}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        showToast('Receipt Image Slip Downloaded!');
+      }).catch(err => {
+        showToast('Error generating slip image');
+      });
+    }
+
+    function sendOrderToAdminWhatsApp() {
+      if (!activeReceiptData) return;
+      const o = activeReceiptData;
+
+      const message = `🛍️ *NEW RESELLER ORDER BOOKING* 🛍️
+-----------------------------------
+*Order ID:* ${o.id}
+*Reseller:* ${o.resellerName} (${o.resellerEmail})
+
+📦 *Product:* ${o.productTitle}
+*Size:* ${o.size} | *Color:* ${o.color}
+
+💰 *Financials:*
+- Item Price: LKR ${o.sellingPrice.toLocaleString()}
+- Delivery: LKR ${o.deliveryFee}
+- *Total COD to Collect: LKR ${o.totalCOD.toLocaleString()}*
+- Reseller Profit: LKR ${o.commission.toLocaleString()}
+
+📍 *Customer Details:*
+- Name: ${o.customerName}
+- Phone 1: ${o.customerPhone1}
+- Phone 2: ${o.customerPhone2}
+- Address: ${o.customerAddress}
+- District: ${o.district}
+-----------------------------------
+Please confirm and arrange dispatch with Tracking Number. Thank you!`;
+
+      const encoded = encodeURIComponent(message);
+      window.open(`https://wa.me/${ADMIN_INT_PHONE}?text=${encoded}`, '_blank');
+    }
+
+    /* ----------------------------------------------------
+       ORDERS LIST & SEARCH ENGINE & COURIER TRACKING
+    ---------------------------------------------------- */
+    function setOrderStatusFilter(status) {
+      activeOrderStatus = status;
+      document.querySelectorAll('.order-status-pill').forEach(btn => {
+        btn.classList.remove('bg-brand-orange', 'text-white');
+        btn.classList.add('bg-brand-navy', 'text-slate-400');
+      });
+      event.target.classList.add('bg-brand-orange', 'text-white');
+      event.target.classList.remove('bg-brand-navy', 'text-slate-400');
+      renderOrdersList();
+    }
+
+    function renderOrdersList() {
+      const container = document.getElementById('ordersListContainer');
+      const search = document.getElementById('orderSearchInput').value.toLowerCase().trim();
+
+      // Counts
+      document.getElementById('count-all').innerText = orders.length;
+      document.getElementById('count-pending').innerText = orders.filter(o => o.status === 'PENDING').length;
+      document.getElementById('count-shipped').innerText = orders.filter(o => o.status === 'SHIPPED').length;
+      document.getElementById('count-delivered').innerText = orders.filter(o => o.status === 'DELIVERED').length;
+      document.getElementById('count-returned').innerText = orders.filter(o => o.status === 'RETURNED').length;
+
+      let filtered = orders.filter(o => {
+        const matchesSearch = o.id.toLowerCase().includes(search) ||
+                              o.customerName.toLowerCase().includes(search) ||
+                              o.customerPhone1.includes(search) ||
+                              o.customerPhone2.includes(search) ||
+                              o.productTitle.toLowerCase().includes(search);
+        const matchesStatus = (activeOrderStatus === 'ALL') || (o.status === activeOrderStatus);
+        return matchesSearch && matchesStatus;
+      });
+
+      container.innerHTML = '';
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="py-12 text-center text-slate-400 bg-brand-card rounded-2xl border border-brand-border">
+            <i data-lucide="inbox" class="w-10 h-10 mx-auto text-slate-500 mb-2"></i>
+            <p class="font-bold">No orders found</p>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      filtered.forEach(o => {
+        const statusColors = {
+          PENDING: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+          SHIPPED: 'bg-blue-500/20 text-blue-300 border-blue-500/40',
+          DELIVERED: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+          RETURNED: 'bg-rose-500/20 text-rose-300 border-rose-500/40'
+        };
+
+        const adminStatusControls = currentUser.isAdmin ? `
+          <div class="pt-2 border-t border-brand-border/60 flex flex-wrap items-center justify-between gap-2">
+            <div class="flex items-center gap-1">
+              <span class="text-[10px] text-slate-400 font-bold uppercase">Change Status:</span>
+              <button onclick="updateOrderStatus('${o.id}', 'PENDING')" class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 hover:bg-amber-500/30">Pending</button>
+              <button onclick="updateOrderStatus('${o.id}', 'SHIPPED')" class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-500/20 text-blue-400 hover:bg-blue-500/30">Shipped</button>
+              <button onclick="updateOrderStatus('${o.id}', 'DELIVERED')" class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30">Delivered</button>
+              <button onclick="updateOrderStatus('${o.id}', 'RETURNED')" class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-400 hover:bg-rose-500/30">Returned</button>
+            </div>
+            
+            <div class="flex items-center gap-1">
+              <input type="text" id="trackInput-${o.id}" value="${o.trackingNumber !== 'PENDING' ? o.trackingNumber : ''}" placeholder="Waybill No (Koombiyo/Prompt)" class="px-2 py-1 bg-brand-navy border border-brand-border rounded text-[10px] text-white focus:outline-none focus:border-brand-orange">
+              <button onclick="saveTrackingNumber('${o.id}')" class="px-2 py-1 bg-brand-orange hover:bg-brand-orangeLight text-white rounded text-[10px] font-bold">Save Tracking</button>
+            </div>
+          </div>
+        ` : '';
+
+        const itemCard = document.createElement('div');
+        itemCard.className = 'bg-brand-card border border-brand-border rounded-2xl p-4 space-y-3';
+        itemCard.innerHTML = `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-brand-border/60 pb-2.5">
+            <div class="flex items-center space-x-2.5">
+              <span class="font-mono font-bold text-brand-orange text-sm">${o.id}</span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full border font-bold uppercase ${statusColors[o.status] || 'bg-slate-700 text-white'}">${o.status}</span>
+              <span class="text-[10px] text-slate-400">• ${o.date}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-slate-300">Reseller Commission:</span>
+              <span class="text-xs font-bold font-mono text-emerald-400">LKR ${o.commission.toLocaleString()}</span>
+              <span class="text-[10px] px-2 py-0.5 rounded ${o.isCommissionPaid ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'} font-bold">
+                ${o.isCommissionPaid ? 'Paid' : 'Pending Wed'}
+              </span>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <img src="${o.productImg}" alt="Item" class="w-14 h-14 rounded-xl object-cover bg-brand-navy shrink-0">
+            <div class="flex-1 text-xs space-y-1">
+              <h5 class="font-bold text-white">${o.productTitle}</h5>
+              <p class="text-slate-400 text-[11px]">Size: <b class="text-white">${o.size}</b> | Color: <b class="text-white">${o.color}</b> | Customer COD: <b class="text-amber-400 font-mono">LKR ${o.totalCOD.toLocaleString()}</b></p>
+              <p class="text-slate-300 text-[11px] truncate">Receiver: ${o.customerName} (${o.customerPhone1} / ${o.customerPhone2}) - ${o.district}</p>
+            </div>
+          </div>
+
+          <!-- Tracking Waybill Banner -->
+          <div class="bg-brand-navy/80 px-3 py-2 rounded-xl border border-brand-border flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2">
+              <i data-lucide="truck" class="w-4 h-4 text-brand-orange"></i>
+              <span class="text-slate-400 text-[11px]">Courier Tracking / Waybill:</span>
+              <span class="font-mono font-bold text-white">${o.trackingNumber || 'Awaiting Dispatch'}</span>
+            </div>
+            <button onclick="prepareReceiptModal(orders.find(x => x.id === '${o.id}'))" class="text-brand-orange hover:underline text-[11px] font-bold flex items-center gap-1">
+              <i data-lucide="receipt" class="w-3 h-3"></i> View Slip
+            </button>
+          </div>
+
+          ${adminStatusControls}
+        `;
+        container.appendChild(itemCard);
+      });
+
+      lucide.createIcons();
+    }
+
+    function updateOrderStatus(orderId, newStatus) {
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+      order.status = newStatus;
+      renderOrdersList();
+      updateFinancialDashboard();
+      showToast(`Order ${orderId} status set to ${newStatus}`);
+    }
+
+    function saveTrackingNumber(orderId) {
+      const input = document.getElementById(`trackInput-${orderId}`);
+      const order = orders.find(o => o.id === orderId);
+      if (input && order) {
+        order.trackingNumber = input.value.trim() || 'PENDING';
+        if (order.status === 'PENDING' && order.trackingNumber !== 'PENDING') {
+          order.status = 'SHIPPED';
+        }
+        renderOrdersList();
+        showToast(`Tracking saved for ${orderId}`);
+      }
+    }
+
+    /* ----------------------------------------------------
+       EXPORT TO EXCEL / CSV (COURIER BULK BOOKING SHEET)
+    ---------------------------------------------------- */
+    function exportOrdersToCSV() {
+      if (orders.length === 0) {
+        showToast('No orders available to export');
+        return;
+      }
+
+      const headers = ['Waybill No', 'Order ID', 'Customer Name', 'Phone 1', 'Phone 2', 'Delivery Address', 'District', 'COD Amount (LKR)', 'Item Details', 'Status'];
+      const rows = orders.map(o => [
+        `"${o.trackingNumber || ''}"`,
+        `"${o.id}"`,
+        `"${o.customerName}"`,
+        `"${o.customerPhone1}"`,
+        `"${o.customerPhone2}"`,
+        `"${o.customerAddress.replace(/"/g, '""')}"`,
+        `"${o.district}"`,
+        o.totalCOD,
+        `"${o.productTitle} (${o.size}/${o.color})"`,
+        `"${o.status}"`
+      ]);
+
+      let csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map(e => e.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `EasyBuy_Courier_Bulk_Sheet_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      showToast('Courier Booking CSV Exported!');
+    }
+
+    /* ----------------------------------------------------
+       ADMIN RESELLER MANAGEMENT & TOUCH PROFILE MODAL
+    ---------------------------------------------------- */
+    function renderAdminResellers() {
+      const container = document.getElementById('adminResellersList');
+      const search = (document.getElementById('adminResellerSearch')?.value || '').toLowerCase();
+
+      const filtered = resellers.filter(r => 
+        r.name.toLowerCase().includes(search) || 
+        r.email.toLowerCase().includes(search) || 
+        r.businessName.toLowerCase().includes(search)
+      );
+
+      container.innerHTML = '';
+      filtered.forEach(r => {
+        // Calculate reseller specific numbers
+        const rOrders = orders.filter(o => o.resellerEmail === r.email);
+        const deliveredOrders = rOrders.filter(o => o.status === 'DELIVERED');
+        const pendingPayout = deliveredOrders.filter(o => !o.isCommissionPaid).reduce((acc, o) => acc + o.commission, 0);
+
+        const card = document.createElement('div');
+        card.className = 'bg-brand-card border border-brand-border rounded-2xl p-4 hover:border-brand-orange/60 transition cursor-pointer space-y-3';
+        card.onclick = () => openResellerProfileModal(r.id);
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-xl bg-brand-orange/20 text-brand-orange flex items-center justify-center font-bold text-sm">
+                ${r.name.charAt(0)}
+              </div>
+              <div>
+                <h4 class="text-sm font-bold text-white">${r.name}</h4>
+                <p class="text-xs text-brand-orange font-semibold">${r.businessName}</p>
+              </div>
+            </div>
+            <span class="text-[10px] text-slate-400">${rOrders.length} Orders</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-xs pt-1 border-t border-brand-border/60">
+            <div>
+              <span class="text-[10px] text-slate-400 block">Pending Payout (Wed)</span>
+              <span class="font-bold text-amber-400 font-mono">LKR ${pendingPayout.toLocaleString()}</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 block">Bank Account</span>
+              <span class="text-slate-300 font-mono text-[11px] truncate block">${r.bankName || 'Not Set'}</span>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    function openResellerProfileModal(resellerId) {
+      const reseller = resellers.find(r => r.id === resellerId);
+      if (!reseller) return;
+      selectedResellerForModal = reseller;
+
+      document.getElementById('admResellerName').innerText = reseller.name;
+      document.getElementById('admResellerBusiness').innerText = `${reseller.businessName} • ${reseller.email}`;
+
+      // WhatsApp Chat Link
+      const waNum = (reseller.phone || '').replace(/[^0-9]/g, '');
+      const waLink = `https://wa.me/${waNum.startsWith('0') ? '94' + waNum.substring(1) : waNum}?text=Hello%20${encodeURIComponent(reseller.name)}%2C%20regarding%20your%20EasyBuy%20reseller%20orders%20and%20Wednesday%20payout...`;
+      document.getElementById('admResellerWhatsAppBtn').href = waLink;
+
+      // Bank Details
+      document.getElementById('admBankName').innerText = reseller.bankName || 'Not provided';
+      document.getElementById('admBankBranch').innerText = reseller.bankBranch || 'Not provided';
+      document.getElementById('admBankAcc').innerText = reseller.bankAccount || 'Not provided';
+      document.getElementById('admBankHolder').innerText = reseller.bankHolder || reseller.name;
+
+      // Reseller's orders metrics
+      const rOrders = orders.filter(o => o.resellerEmail === reseller.email);
+      const delivered = rOrders.filter(o => o.status === 'DELIVERED');
+      const shipped = rOrders.filter(o => o.status === 'SHIPPED');
+      const returned = rOrders.filter(o => o.status === 'RETURNED');
+
+      const deliveredComm = delivered.reduce((acc, o) => acc + o.commission, 0);
+      const shippedComm = shipped.reduce((acc, o) => acc + o.commission, 0);
+      const returnedComm = returned.reduce((acc, o) => acc + o.commission, 0);
+      const pendingWed = delivered.filter(o => !o.isCommissionPaid).reduce((acc, o) => acc + o.commission, 0);
+
+      document.getElementById('admResellerPending').innerText = `LKR ${pendingWed.toLocaleString()}`;
+      document.getElementById('admResellerDelivered').innerText = `LKR ${deliveredComm.toLocaleString()}`;
+      document.getElementById('admResellerShipped').innerText = `LKR ${shippedComm.toLocaleString()}`;
+      document.getElementById('admResellerReturned').innerText = `LKR ${returnedComm.toLocaleString()}`;
+
+      // Individual Orders with Paid/Unpaid toggles
+      const ordersContainer = document.getElementById('admResellerOrdersList');
+      ordersContainer.innerHTML = '';
+
+      if (rOrders.length === 0) {
+        ordersContainer.innerHTML = `<p class="text-xs text-slate-400 py-2">No orders recorded yet for this reseller.</p>`;
+      } else {
+        rOrders.forEach(o => {
+          const row = document.createElement('div');
+          row.className = 'flex items-center justify-between p-2 rounded-xl bg-brand-card border border-brand-border text-xs';
+          row.innerHTML = `
+            <div>
+              <span class="font-mono font-bold text-white">${o.id}</span>
+              <span class="text-[10px] text-slate-400 ml-1.5">${o.status}</span>
+              <p class="text-[10px] text-amber-400 font-mono font-bold">Comm: LKR ${o.commission.toLocaleString()}</p>
+            </div>
+            <button onclick="toggleOrderCommissionPaid('${o.id}')" class="px-2.5 py-1 rounded-lg text-[10px] font-bold transition ${o.isCommissionPaid ? 'bg-emerald-600 text-white' : 'bg-brand-navy border border-brand-border text-amber-400'}">
+              ${o.isCommissionPaid ? '✓ Paid to Bank' : 'Mark as Paid'}
+            </button>
+          `;
+          ordersContainer.appendChild(row);
+        });
+      }
+
+      document.getElementById('resellerProfileModal').classList.remove('hidden');
+      document.getElementById('resellerProfileModal').classList.add('flex');
+      lucide.createIcons();
+    }
+
+    function closeResellerProfileModal() {
+      document.getElementById('resellerProfileModal').classList.add('hidden');
+      document.getElementById('resellerProfileModal').classList.remove('flex');
+    }
+
+    function toggleOrderCommissionPaid(orderId) {
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+      order.isCommissionPaid = !order.isCommissionPaid;
+      if (selectedResellerForModal) {
+        openResellerProfileModal(selectedResellerForModal.id);
+      }
+      renderOrdersList();
+      updateFinancialDashboard();
+      showToast(`Order ${orderId} payout status updated!`);
+    }
+
+    function markAllDeliveredAsPaidForReseller() {
+      if (!selectedResellerForModal) return;
+      const rOrders = orders.filter(o => o.resellerEmail === selectedResellerForModal.email && o.status === 'DELIVERED');
+      rOrders.forEach(o => o.isCommissionPaid = true);
+      openResellerProfileModal(selectedResellerForModal.id);
+      renderOrdersList();
+      updateFinancialDashboard();
+      showToast('All delivered orders marked as Paid!');
+    }
+
+    function copyResellerBankDetails() {
+      if (!selectedResellerForModal) return;
+      const r = selectedResellerForModal;
+      const info = `Bank: ${r.bankName}\nBranch: ${r.bankBranch}\nAccount No: ${r.bankAccount}\nAccount Name: ${r.bankHolder}`;
+      copyToClipboardText(info);
+      document.getElementById('copyBankBtnText').innerText = 'Copied!';
+      setTimeout(() => {
+        document.getElementById('copyBankBtnText').innerText = 'Copy Bank Info';
+      }, 2000);
+      showToast('Bank details copied to clipboard!');
+    }
+
+    /* ----------------------------------------------------
+       ADMIN ADD PRODUCT WITH 4 DIRECT GALLERY IMAGE UPLOADS
+    ---------------------------------------------------- */
+    function handleImageSlotUpload(event, slotIndex) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        // Compress using Canvas client-side
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const maxDim = 800;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height && width > maxDim) {
+            height *= maxDim / width;
+            width = maxDim;
+          } else if (height > maxDim) {
+            width *= maxDim / height;
+            height = maxDim;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          currentUploadedImages[slotIndex] = compressedDataUrl;
+
+          // Preview in UI
+          const box = document.getElementById(`preview-box-${slotIndex}`);
+          box.innerHTML = `<img src="${compressedDataUrl}" class="w-full h-full object-cover">`;
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleCreateProduct(e) {
+      e.preventDefault();
+
+      // Check if all 4 images are uploaded
+      const missingSlot = currentUploadedImages.findIndex(img => img === null);
+      if (missingSlot !== -1) {
+        showToast(`Please upload Photo #${missingSlot + 1} from your phone gallery/PC`);
+        return;
+      }
+
+      const title = document.getElementById('newProdTitle').value.trim();
+      const category = document.getElementById('newProdCategory').value;
+      const baseCost = parseFloat(document.getElementById('newProdBaseCost').value);
+      const offerPriceInput = document.getElementById('newProdOfferPrice').value;
+      const offerPrice = offerPriceInput ? parseFloat(offerPriceInput) : null;
+      const colors = document.getElementById('newProdColors').value.split(',').map(c => c.trim()).filter(Boolean);
+      const inStock = document.getElementById('newProdInStock').value === 'true';
+      const desc = document.getElementById('newProdDesc').value.trim();
+
+      const newProduct = {
+        id: 'PROD-' + (products.length + 101),
+        title: title,
+        category: category,
+        baseCost: baseCost,
+        specialOfferPrice: offerPrice,
+        isOffer: offerPrice !== null,
+        inStock: inStock,
+        colors: colors.length > 0 ? colors : ['Standard'],
+        images: [...currentUploadedImages],
+        desc: desc
+      };
+
+      products.unshift(newProduct);
+      document.getElementById('addProductForm').reset();
+      currentUploadedImages = [null, null, null, null];
+      for (let i = 0; i < 4; i++) {
+        document.getElementById(`preview-box-${i}`).innerHTML = `<i data-lucide="image" class="w-6 h-6 text-slate-500"></i>`;
+      }
+      lucide.createIcons();
+
+      showToast('Product published successfully to catalog!');
+      switchTab('archive');
+    }
+
+    /* ----------------------------------------------------
+       ADMIN EDIT & DELETE PRODUCT
+    ---------------------------------------------------- */
+    function openEditProductModal(prodId, event) {
+      if (event) event.stopPropagation();
+      const p = products.find(x => x.id === prodId);
+      if (!p) return;
+
+      document.getElementById('editProdId').value = p.id;
+      document.getElementById('editProdTitle').value = p.title;
+      document.getElementById('editProdCost').value = p.baseCost;
+      document.getElementById('editProdOffer').value = p.specialOfferPrice || '';
+      document.getElementById('editProdStock').value = p.inStock ? 'true' : 'false';
+      document.getElementById('editProdDesc').value = p.desc;
+
+      document.getElementById('editProductModal').classList.remove('hidden');
+      document.getElementById('editProductModal').classList.add('flex');
+    }
+
+    function closeEditProductModal() {
+      document.getElementById('editProductModal').classList.add('hidden');
+      document.getElementById('editProductModal').classList.remove('flex');
+    }
+
+    function handleSaveProductEdit(e) {
+      e.preventDefault();
+      const prodId = document.getElementById('editProdId').value;
+      const p = products.find(x => x.id === prodId);
+      if (!p) return;
+
+      p.title = document.getElementById('editProdTitle').value.trim();
+      p.baseCost = parseFloat(document.getElementById('editProdCost').value);
+      const offer = document.getElementById('editProdOffer').value;
+      p.specialOfferPrice = offer ? parseFloat(offer) : null;
+      p.isOffer = p.specialOfferPrice !== null;
+      p.inStock = document.getElementById('editProdStock').value === 'true';
+      p.desc = document.getElementById('editProdDesc').value.trim();
+
+      closeEditProductModal();
+      renderCatalog();
+      showToast('Product updated successfully!');
+    }
+
+    function confirmDeleteProduct() {
+      const prodId = document.getElementById('editProdId').value;
+      products = products.filter(x => x.id !== prodId);
+      closeEditProductModal();
+      renderCatalog();
+      showToast('Product removed from catalog');
+    }
+
+    /* ----------------------------------------------------
+       ACCOUNT, BANK PROFILE & EARNINGS DASHBOARD
+    ---------------------------------------------------- */
+    function updateAccountProfileView() {
+      if (currentUser.email) {
+        document.getElementById('accountName').innerText = currentUser.name;
+        document.getElementById('accountEmail').innerText = currentUser.email;
+        document.getElementById('accountBusiness').innerText = `Business: ${currentUser.businessName || 'Default Brand'}`;
+        document.getElementById('accountRoleTag').innerText = currentUser.isAdmin ? 'Supreme Admin' : 'Verified Reseller';
+        document.getElementById('accountBigAvatar').innerText = currentUser.name.charAt(0).toUpperCase();
+
+        if (currentUser.bankDetails) {
+          document.getElementById('bankBusinessName').value = currentUser.businessName || '';
+          document.getElementById('bankWhatsApp').value = currentUser.phone || '';
+          document.getElementById('bankName').value = currentUser.bankDetails.bankName || '';
+          document.getElementById('bankBranch').value = currentUser.bankDetails.branch || '';
+          document.getElementById('bankAccountNumber').value = currentUser.bankDetails.accNo || '';
+          document.getElementById('bankHolderName').value = currentUser.bankDetails.holder || '';
+        }
+      } else {
+        document.getElementById('accountName').innerText = 'Guest Reseller';
+        document.getElementById('accountEmail').innerText = 'Please sign in to view commission ledger and payouts.';
+        document.getElementById('accountBusiness').innerText = 'Business: Not Registered';
+        document.getElementById('accountRoleTag').innerText = 'Guest';
+      }
+      updateFinancialDashboard();
+    }
+
+    function saveBankDetails(e) {
+      e.preventDefault();
+      currentUser.businessName = document.getElementById('bankBusinessName').value.trim();
+      currentUser.phone = document.getElementById('bankWhatsApp').value.trim();
+      currentUser.bankDetails = {
+        bankName: document.getElementById('bankName').value,
+        branch: document.getElementById('bankBranch').value.trim(),
+        accNo: document.getElementById('bankAccountNumber').value.trim(),
+        holder: document.getElementById('bankHolderName').value.trim()
+      };
+
+      // Also sync to resellers directory
+      const r = resellers.find(x => x.email === currentUser.email);
+      if (r) {
+        r.businessName = currentUser.businessName;
+        r.phone = currentUser.phone;
+        r.bankName = currentUser.bankDetails.bankName;
+        r.bankBranch = currentUser.bankDetails.branch;
+        r.bankAccount = currentUser.bankDetails.accNo;
+        r.bankHolder = currentUser.bankDetails.holder;
+      }
+
+      sessionStorage.setItem('easybuy_user', JSON.stringify(currentUser));
+      updateAccountProfileView();
+      showToast('Bank details saved for Wednesday Payouts!');
+    }
+
+    function updateFinancialDashboard() {
+      // If admin, show total platform stats; if reseller, show personalized stats
+      let relevantOrders = orders;
+      if (currentUser.email && !currentUser.isAdmin) {
+        relevantOrders = orders.filter(o => o.resellerEmail === currentUser.email);
+      }
+
+      const delivered = relevantOrders.filter(o => o.status === 'DELIVERED');
+      const pendingWed = delivered.filter(o => !o.isCommissionPaid).reduce((sum, o) => sum + o.commission, 0);
+      const paidComm = delivered.filter(o => o.isCommissionPaid).reduce((sum, o) => sum + o.commission, 0);
+      const shippedComm = relevantOrders.filter(o => o.status === 'SHIPPED').reduce((sum, o) => sum + o.commission, 0);
+      const totalVolume = delivered.reduce((sum, o) => sum + o.totalCOD, 0);
+
+      document.getElementById('statPendingCommission').innerText = `LKR ${pendingWed.toLocaleString()}`;
+      document.getElementById('statPaidCommission').innerText = `LKR ${paidComm.toLocaleString()}`;
+      document.getElementById('statShippedCommission').innerText = `LKR ${shippedComm.toLocaleString()}`;
+      document.getElementById('statTotalVolume').innerText = `LKR ${totalVolume.toLocaleString()}`;
+    }
+
+    /* ----------------------------------------------------
+       SIZE GUIDE & BONUS MODALS
+    ---------------------------------------------------- */
+    function openSizeGuideModal() {
+      document.getElementById('sizeGuideModal').classList.remove('hidden');
+      document.getElementById('sizeGuideModal').classList.add('flex');
+    }
+    function closeSizeGuideModal() {
+      document.getElementById('sizeGuideModal').classList.add('hidden');
+      document.getElementById('sizeGuideModal').classList.remove('flex');
+    }
+
+    function openBonusModal() {
+      document.getElementById('bonusModal').classList.remove('hidden');
+      document.getElementById('bonusModal').classList.add('flex');
+    }
+    function closeBonusModal() {
+      document.getElementById('bonusModal').classList.add('hidden');
+      document.getElementById('bonusModal').classList.remove('flex');
+    }
+
+    /* ----------------------------------------------------
+       TOAST UTILITY
+    ---------------------------------------------------- */
+    function showToast(text) {
+      const toast = document.getElementById('toastMessage');
+      document.getElementById('toastText').innerText = text;
+      toast.style.transform = 'translateY(0)';
+      setTimeout(() => {
+        toast.style.transform = 'translateY(-150%)';
+      }, 3200);
+    }
+  </script>
+</body>
+</html>
